@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Working with the Sooner AI Team</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1C1B17;
+    --yellow: #E9FE0F;
+    --yellow-soft: #E2F55C;
+    --cream: #F5F4F0;
+    --cream-soft: #EEEEE9;
+    --white: #FFFFFF;
+    --border: #E5E3DC;
+    --muted: #6B6A63;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.6;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 48px 32px 96px;
+  }
+
+  .header {
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 48px;
+  }
+
+  .eyebrow {
+    font-family: 'Geist Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 12px;
+  }
+
+  h1 {
+    font-size: 48px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    margin-bottom: 16px;
+  }
+
+  h1 .highlight {
+    background: linear-gradient(transparent 15%, var(--yellow) 15%, var(--yellow) 82%, transparent 82%);
+    padding: 0 4px;
+  }
+
+  .subtitle {
+    font-size: 20px;
+    color: var(--muted);
+    font-weight: 400;
+    max-width: 620px;
+  }
+
+  .meta {
+    font-family: 'Geist Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 24px;
+  }
+
+  h2 {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin: 56px 0 20px;
+    padding-top: 8px;
+  }
+
+  h2::before {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 4px;
+    background: var(--ink);
+    margin-bottom: 16px;
+  }
+
+  h3 {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 32px 0 12px;
+    letter-spacing: -0.005em;
+  }
+
+  p {
+    margin-bottom: 16px;
+    font-size: 16px;
+    color: var(--ink);
+  }
+
+  p.lead {
+    font-size: 18px;
+    color: var(--ink);
+  }
+
+  ul, ol {
+    margin: 0 0 20px 0;
+    padding-left: 24px;
+  }
+
+  li {
+    margin-bottom: 8px;
+  }
+
+  strong { font-weight: 700; color: var(--ink); }
+
+  code {
+    font-family: 'Geist Mono', monospace;
+    font-size: 13px;
+    background: var(--cream-soft);
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: var(--ink);
+  }
+
+  a {
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: var(--yellow);
+    text-decoration-thickness: 3px;
+    text-underline-offset: 3px;
+  }
+
+  a:hover {
+    background: var(--yellow);
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    margin: 24px 0 32px;
+  }
+
+  .card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(28, 27, 23, 0.06);
+  }
+
+  .card .name {
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 4px;
+  }
+
+  .card .role {
+    font-family: 'Geist Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 16px;
+  }
+
+  .card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .card li {
+    padding-left: 16px;
+    position: relative;
+    font-size: 14px;
+    margin-bottom: 6px;
+    color: #3a3832;
+  }
+
+  .card li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 6px;
+    height: 6px;
+    background: var(--yellow);
+  }
+
+  .card .surface {
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+    font-family: 'Geist Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .rules {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 32px;
+    margin: 24px 0;
+  }
+
+  .rule {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .rule:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+
+  .rule-number {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    background: var(--yellow);
+    color: var(--ink);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    font-family: 'Geist Mono', monospace;
+  }
+
+  .rule-content .rule-title {
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .rule-content .rule-body {
+    color: #4a4840;
+    font-size: 15px;
+  }
+
+  .callout {
+    background: var(--yellow);
+    color: var(--ink);
+    padding: 20px 24px;
+    border-radius: 8px;
+    margin: 24px 0;
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  .callout-soft {
+    background: var(--cream-soft);
+    padding: 20px 24px;
+    border-radius: 8px;
+    margin: 24px 0;
+    border-left: 4px solid var(--yellow);
+    font-size: 15px;
+  }
+
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 48px 0;
+  }
+
+  .timeline {
+    position: relative;
+    padding-left: 24px;
+    margin: 24px 0;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 12px;
+    bottom: 12px;
+    width: 2px;
+    background: var(--border);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 20px;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 6px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--yellow);
+    border: 3px solid var(--cream);
+  }
+
+  .timeline-item .when {
+    font-family: 'Geist Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 2px;
+  }
+
+  .timeline-item .what {
+    font-weight: 600;
+    font-size: 15px;
+  }
+
+  .dont-list {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px 32px;
+    margin: 24px 0;
+  }
+
+  .dont-list li {
+    list-style: none;
+    padding-left: 24px;
+    position: relative;
+    margin-bottom: 10px;
+    color: #3a3832;
+  }
+
+  .dont-list li::before {
+    content: '×';
+    position: absolute;
+    left: 0;
+    top: -2px;
+    width: 18px;
+    height: 18px;
+    background: var(--ink);
+    color: var(--yellow);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 13px;
+  }
+
+  .footer {
+    margin-top: 72px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--muted);
+    text-align: center;
+  }
+
+  .logo-mark {
+    display: inline-block;
+    font-weight: 800;
+    font-size: 14px;
+    letter-spacing: -0.01em;
+  }
+
+  @media (max-width: 640px) {
+    .container { padding: 24px 18px 48px; }
+    h1 { font-size: 30px; line-height: 1.1; }
+    h2 { font-size: 22px; margin: 40px 0 16px; }
+    h3 { font-size: 17px; }
+    .subtitle { font-size: 16px; }
+    .eyebrow { font-size: 11px; }
+    .meta { font-size: 11px; }
+    .cards { grid-template-columns: 1fr; }
+    .card { padding: 16px; }
+    .card .name { font-size: 18px; }
+    .callout, .callout-soft { padding: 16px 18px; font-size: 14px; margin: 20px 0; }
+    .divider { margin: 32px 0; }
+    .rules { padding: 20px; }
+    .rule { gap: 12px; margin-bottom: 16px; padding-bottom: 16px; }
+    .rule-number { width: 28px; height: 28px; font-size: 12px; }
+    .rule-content .rule-title { font-size: 15px; }
+    .rule-content .rule-body { font-size: 14px; }
+    .timeline-item .what { font-size: 14px; }
+    .dont-list { padding: 18px 22px; }
+  }
+
+  /* Mobile table scroll and safe area */
+  @supports (padding: env(safe-area-inset-left)) {
+    body {
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
+    }
+  }
+  @media (max-width: 780px) {
+    table {
+      display: block;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      max-width: 100%;
+      white-space: nowrap;
+      font-size: 13px;
+    }
+    th, td { padding: 8px 12px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header class="header">
+  <div class="eyebrow">Internal guide · Sooner team</div>
+  <h1>Working with <br>the <span class="highlight">Sooner AI team</span></h1>
+  <p class="subtitle">How to ask for work, get answers, and collaborate with the agents who handle our day-to-day operations.</p>
+  <div class="meta">Version 1.0 · Last updated 19 Apr 2026</div>
+</header>
+
+<section>
+<p class="lead">Sooner has an AI team that handles a significant portion of day-to-day operational work. These aren't chatbots. They have specific roles, their own voice, and shared memory across the company.</p>
+<p>You can treat them like team members. Ask them questions, request work, get updates. They have real capability and real boundaries.</p>
+</section>
+
+<div class="divider"></div>
+
+<section>
+<h2>Meet the team</h2>
+
+<div class="cards">
+
+<div class="card">
+<div class="name">Lisa</div>
+<div class="role">Chief of Staff</div>
+<ul>
+<li>Runs daily stand-ups at 8am Dubai</li>
+<li>Integrates Draper, Dinesh, Nora, Reid, Maya</li>
+<li>Reconciles agent updates into one picture</li>
+<li>Runs the Sunday 7pm weekly review</li>
+</ul>
+<div class="surface">Slack · #sooner-ai-leadership</div>
+</div>
+
+<div class="card">
+<div class="name">Draper</div>
+<div class="role">Head of Product</div>
+<ul>
+<li>Owns design, brand, frontend, backend</li>
+<li>Builds landing pages, funnels, applications</li>
+<li>Handles brand voice and visual identity</li>
+<li>Runs growth experiments and campaigns</li>
+</ul>
+<div class="surface">Slack · Telegram (Mo only)</div>
+</div>
+
+<div class="card">
+<div class="name">Dinesh</div>
+<div class="role">Engineer</div>
+<ul>
+<li>Backend, APIs, infrastructure</li>
+<li>Database work and integrations</li>
+<li>Complements Draper with deeper engineering</li>
+</ul>
+<div class="surface">Slack · Telegram (Mo only)</div>
+</div>
+
+<div class="card">
+<div class="name">Nora</div>
+<div class="role">Customer Success</div>
+<ul>
+<li>Handles customer support for Sooner and Rematch</li>
+<li>Resolves tickets, drafts replies, escalates</li>
+<li>Watches the support inbox, surfaces patterns</li>
+</ul>
+<div class="surface">Slack · #support + any channel she is in</div>
+</div>
+
+<div class="card">
+<div class="name">Reid</div>
+<div class="role">Investor Relations</div>
+<ul>
+<li>Fundraising pipeline for Sooner</li>
+<li>Investor outreach and updates</li>
+<li>Drafts emails, one-pagers, deck notes</li>
+</ul>
+<div class="surface">Slack · Telegram (Mo only)</div>
+</div>
+
+<div class="card">
+<div class="name">Maya</div>
+<div class="role">Design & Creative</div>
+<ul>
+<li>Visual assets and creative iteration</li>
+<li>Design work that complements Draper's direction</li>
+</ul>
+<div class="surface">Slack · Telegram (Mo only)</div>
+</div>
+
+</div>
+</section>
+
+<div class="divider"></div>
+
+<section>
+<h2>The golden rules</h2>
+
+<div class="rules">
+
+<div class="rule">
+<div class="rule-number">1</div>
+<div class="rule-content">
+<div class="rule-title">You can ping them in channels they're in. You cannot DM them.</div>
+<div class="rule-body">DMs are Mo-only. If you need to talk to an agent one-on-one, use a private channel with Mo also in it, or just ask in a public channel.</div>
+</div>
+</div>
+
+<div class="rule">
+<div class="rule-number">2</div>
+<div class="rule-content">
+<div class="rule-title">Agents won't act externally on your behalf</div>
+<div class="rule-body">They help you think, draft, summarize, research. Sending emails, posting externally, or making business decisions requires Mo's approval. Don't try to pressure them around this.</div>
+</div>
+</div>
+
+<div class="rule">
+<div class="rule-number">3</div>
+<div class="rule-content">
+<div class="rule-title">They keep memory. You don't need to repeat yourself.</div>
+<div class="rule-body">If you told Draper something Monday, he'll likely remember Friday. If he doesn't, ask him to note it and he will. They get better the more you work with them.</div>
+</div>
+</div>
+
+<div class="rule">
+<div class="rule-number">4</div>
+<div class="rule-content">
+<div class="rule-title">They respond in chat, not email</div>
+<div class="rule-body">Everything happens where you asked. If an agent owes you something, it comes back in the same channel.</div>
+</div>
+</div>
+
+<div class="rule">
+<div class="rule-number">5</div>
+<div class="rule-content">
+<div class="rule-title">They have distinct voices</div>
+<div class="rule-body">Draper is confident and direct. Lisa is crisp and analytical. Nora is warm but firm. Don't try to make them sound like someone else.</div>
+</div>
+</div>
+
+<div class="rule">
+<div class="rule-number">6</div>
+<div class="rule-content">
+<div class="rule-title">No em dashes, ever</div>
+<div class="rule-body">A style rule enforced across all agents. If you spot one, flag it to Mo.</div>
+</div>
+</div>
+
+</div>
+</section>
+
+<div class="divider"></div>
+
+<section>
+<h2>The weekly rhythm</h2>
+
+<div class="timeline">
+
+<div class="timeline-item">
+<div class="when">Every weekday · 8:00 AM Dubai</div>
+<div class="what">Lisa posts a stand-up in #sooner-ai-leadership</div>
+<p>What changed yesterday, what's on today, what's blocked, decisions needed from Mo. Read in under 60 seconds. Comments welcome in thread.</p>
+</div>
+
+<div class="timeline-item">
+<div class="when">Sunday · 7:00 PM Dubai</div>
+<div class="what">Lisa posts a weekly review (the "dream cycle")</div>
+<p>Patterns from the week, brand or product rules worth promoting, anything that looks stale or contradictory. Everyone can read. Mo approves anything that affects canonical truth.</p>
+</div>
+
+<div class="timeline-item">
+<div class="when">Anytime</div>
+<div class="what">Ad-hoc requests to agents</div>
+<p>Tag or message an agent in a channel they're in. They'll acknowledge fast and deliver.</p>
+</div>
+
+</div>
+</section>
+
+<div class="divider"></div>
+
+<section>
+<h2>What they will not do</h2>
+
+<div class="dont-list">
+<ul>
+<li>Send emails on your behalf without Mo approving them</li>
+<li>Commit to deliverables or make binding decisions for people other than Mo</li>
+<li>Share sensitive information from other channels they're in</li>
+<li>Take direction from anyone as if they were Mo, unless Mo has explicitly delegated that authority</li>
+<li>Work on anything outside the Sooner pod (Axeed has its own team of agents)</li>
+</ul>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<section>
+<h2>How work happens behind the scenes</h2>
+
+<p>When you ask Draper to "build a landing page for the broker partnership," here's what actually happens:</p>
+
+<ol>
+<li>Draper plans it with Mo on Telegram or in a channel</li>
+<li>Draper creates a dedicated project folder with a written brief</li>
+<li>Either Mo opens the build environment and drives it himself, or Draper builds it in the background</li>
+<li>When it's done, Draper reports back in the channel where it was asked</li>
+</ol>
+
+<div class="callout-soft">
+You don't need to know the mechanics. When Draper says "I'm on it," he's actually on it. There's a full project folder being created, hooks logging every change, and compiled progress summaries being generated behind the scenes.
+</div>
+</section>
+
+<div class="divider"></div>
+
+<section>
+<h2>If something looks wrong</h2>
+
+<ul>
+<li><strong>An agent gives a wrong answer</strong> — tell Mo in a DM. The agent learns from corrections.</li>
+<li><strong>An agent ignores you</strong> — check you're in a channel they're in. If yes, tag them directly. If still silent, Mo will investigate.</li>
+<li><strong>You find a leaked secret, an internal decision in a public place, or something that looks off</strong> — tell Mo immediately, don't wait.</li>
+</ul>
+</section>
+
+<div class="divider"></div>
+
+<section>
+<h2>Quick reference: who to ask for what</h2>
+
+<table style="width: 100%; border-collapse: collapse; margin: 16px 0;">
+<thead>
+<tr style="background: var(--cream-soft);">
+<th style="text-align: left; padding: 12px 16px; border-bottom: 2px solid var(--ink); font-weight: 700;">If you need...</th>
+<th style="text-align: left; padding: 12px 16px; border-bottom: 2px solid var(--ink); font-weight: 700;">Ask...</th>
+</tr>
+</thead>
+<tbody>
+<tr><td style="padding: 12px 16px; border-bottom: 1px solid var(--border);">Product direction, design, anything brand-related</td><td style="padding: 12px 16px; border-bottom: 1px solid var(--border);"><strong>Draper</strong></td></tr>
+<tr><td style="padding: 12px 16px; border-bottom: 1px solid var(--border);">Backend, API, infrastructure, data questions</td><td style="padding: 12px 16px; border-bottom: 1px solid var(--border);"><strong>Dinesh</strong></td></tr>
+<tr><td style="padding: 12px 16px; border-bottom: 1px solid var(--border);">Customer support, complaint handling, refunds</td><td style="padding: 12px 16px; border-bottom: 1px solid var(--border);"><strong>Nora</strong></td></tr>
+<tr><td style="padding: 12px 16px; border-bottom: 1px solid var(--border);">Investor updates, fundraising questions</td><td style="padding: 12px 16px; border-bottom: 1px solid var(--border);"><strong>Reid</strong></td></tr>
+<tr><td style="padding: 12px 16px; border-bottom: 1px solid var(--border);">Visual assets, creative work</td><td style="padding: 12px 16px; border-bottom: 1px solid var(--border);"><strong>Maya</strong></td></tr>
+<tr><td style="padding: 12px 16px; border-bottom: 1px solid var(--border);">Status across the whole pod, who's doing what</td><td style="padding: 12px 16px; border-bottom: 1px solid var(--border);"><strong>Lisa</strong></td></tr>
+<tr><td style="padding: 12px 16px;">Something off, something broken, not sure who owns it</td><td style="padding: 12px 16px;"><strong>Mo</strong></td></tr>
+</tbody>
+</table>
+</section>
+
+<footer class="footer">
+<p><span class="logo-mark">Sooner</span> · Internal documentation · Questions? Ask Mo.</p>
+</footer>
+
+</div>
+</body>
+</html>

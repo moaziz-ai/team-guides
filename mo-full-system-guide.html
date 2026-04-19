@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mo's OpenClaw System - Complete Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1C1B17;
+    --yellow: #E9FE0F;
+    --yellow-soft: #E2F55C;
+    --lime: #B8FF3D;
+    --cream: #F5F4F0;
+    --cream-soft: #EEEEE9;
+    --white: #FFFFFF;
+    --border: #E5E3DC;
+    --border-dark: #C4C2BA;
+    --muted: #6B6A63;
+    --muted-light: #9A9890;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+
+  body {
+    font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.6;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .layout {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  /* Sidebar nav */
+  .sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    padding: 32px 24px;
+    border-right: 1px solid var(--border);
+    background: var(--cream);
+    overflow-y: auto;
+  }
+
+  .sidebar .sidebar-title {
+    font-weight: 800;
+    font-size: 16px;
+    margin-bottom: 4px;
+  }
+
+  .sidebar .sidebar-sub {
+    font-family: 'Geist Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 32px;
+  }
+
+  .sidebar nav a {
+    display: block;
+    padding: 8px 12px;
+    font-size: 14px;
+    color: var(--muted);
+    text-decoration: none;
+    border-radius: 6px;
+    margin-bottom: 2px;
+    transition: all 0.1s ease;
+  }
+
+  .sidebar nav a:hover {
+    background: var(--cream-soft);
+    color: var(--ink);
+  }
+
+  .sidebar nav a.section {
+    font-family: 'Geist Mono', monospace;
+    font-size: 11px;
+    color: var(--muted-light);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-top: 20px;
+    margin-bottom: 4px;
+    padding: 4px 12px;
+    pointer-events: none;
+    font-weight: 500;
+  }
+
+  /* Main content */
+  .main {
+    padding: 48px 48px 96px;
+    max-width: 880px;
+  }
+
+  .header {
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 48px;
+  }
+
+  .eyebrow {
+    font-family: 'Geist Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 12px;
+  }
+
+  h1 {
+    font-size: 48px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    margin-bottom: 16px;
+  }
+
+  h1 .highlight {
+    background: linear-gradient(transparent 15%, var(--yellow) 15%, var(--yellow) 82%, transparent 82%);
+    padding: 0 4px;
+  }
+
+  .subtitle {
+    font-size: 20px;
+    color: var(--muted);
+    font-weight: 400;
+    max-width: 620px;
+  }
+
+  .meta {
+    font-family: 'Geist Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 24px;
+  }
+
+  h2 {
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin: 64px 0 20px;
+    padding-top: 8px;
+    scroll-margin-top: 80px;
+  }
+
+  h2::before {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 4px;
+    background: var(--ink);
+    margin-bottom: 16px;
+  }
+
+  h3 {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 36px 0 14px;
+    letter-spacing: -0.005em;
+    scroll-margin-top: 80px;
+  }
+
+  h4 {
+    font-size: 17px;
+    font-weight: 700;
+    margin: 24px 0 8px;
+  }
+
+  p { margin-bottom: 16px; }
+  p.lead { font-size: 18px; color: var(--ink); }
+
+  ul, ol { margin: 0 0 20px 0; padding-left: 24px; }
+  li { margin-bottom: 8px; }
+
+  strong { font-weight: 700; }
+
+  code {
+    font-family: 'Geist Mono', monospace;
+    font-size: 13px;
+    background: var(--cream-soft);
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+
+  pre {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 16px 20px;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-family: 'Geist Mono', monospace;
+    font-size: 13px;
+    line-height: 1.55;
+    margin: 16px 0;
+  }
+
+  pre code {
+    background: none;
+    color: inherit;
+    padding: 0;
+    font-size: 13px;
+  }
+
+  a {
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: var(--yellow);
+    text-decoration-thickness: 3px;
+    text-underline-offset: 3px;
+  }
+
+  /* Pod blocks */
+  .pod-section { margin: 32px 0; }
+  .pod-header {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--ink);
+  }
+  .pod-name {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+  }
+  .pod-sub {
+    font-family: 'Geist Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0 24px;
+    font-size: 14px;
+  }
+
+  thead tr {
+    background: var(--cream-soft);
+    border-bottom: 2px solid var(--ink);
+  }
+
+  th {
+    text-align: left;
+    padding: 10px 14px;
+    font-weight: 700;
+    font-size: 13px;
+  }
+
+  td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+
+  tbody tr:hover { background: var(--cream-soft); }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+    margin: 16px 0 24px;
+  }
+
+  .card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px;
+  }
+
+  .card .card-title {
+    font-weight: 800;
+    font-size: 17px;
+    margin-bottom: 2px;
+  }
+
+  .card .card-sub {
+    font-family: 'Geist Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 10px;
+  }
+
+  .card .card-body {
+    font-size: 13px;
+    color: #3a3832;
+  }
+
+  .callout {
+    background: var(--yellow);
+    color: var(--ink);
+    padding: 20px 24px;
+    border-radius: 8px;
+    margin: 24px 0;
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  .callout-soft {
+    background: var(--cream-soft);
+    padding: 20px 24px;
+    border-radius: 8px;
+    margin: 24px 0;
+    border-left: 4px solid var(--yellow);
+    font-size: 15px;
+  }
+
+  .callout-technical {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 20px 24px;
+    border-radius: 8px;
+    margin: 24px 0;
+    font-size: 14px;
+    font-family: 'Geist Mono', monospace;
+    line-height: 1.5;
+  }
+  .callout-technical .label {
+    font-size: 10px;
+    color: var(--yellow);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 8px;
+  }
+  .callout-technical code {
+    background: rgba(233, 254, 15, 0.15);
+    color: var(--yellow);
+    padding: 2px 6px;
+    border-radius: 3px;
+  }
+
+  .divider { height: 1px; background: var(--border); margin: 48px 0; }
+
+  .footer {
+    margin-top: 72px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  /* Tabs-like tag pills for technical markers */
+  .tag {
+    display: inline-block;
+    font-family: 'Geist Mono', monospace;
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+    margin-right: 4px;
+  }
+  .tag-office { background: var(--yellow); color: var(--ink); }
+  .tag-tech { background: var(--ink); color: var(--cream); }
+
+  @media (max-width: 980px) {
+    .layout { grid-template-columns: 1fr; }
+    .sidebar {
+      position: relative;
+      height: auto;
+      border-right: none;
+      border-bottom: 1px solid var(--border);
+      padding: 24px;
+    }
+    .main { padding: 32px 24px 64px; }
+  }
+
+  @media (max-width: 640px) {
+    h1 { font-size: 30px !important; line-height: 1.1; }
+    h2 { font-size: 22px !important; margin: 40px 0 16px; }
+    h3 { font-size: 17px !important; }
+    .subtitle { font-size: 16px; }
+    .eyebrow { font-size: 11px; }
+    .meta { font-size: 11px; }
+    .main { padding: 20px 18px 48px !important; }
+    .cards { grid-template-columns: 1fr; }
+    .card { padding: 14px; }
+    .card .card-title { font-size: 16px; }
+    .callout, .callout-soft { padding: 16px 18px; font-size: 14px; margin: 20px 0; }
+    .callout-technical { padding: 14px 16px; font-size: 12px; line-height: 1.5; }
+    .callout-technical .label { font-size: 9px; }
+    .pod-name { font-size: 20px; }
+    .divider { margin: 32px 0; }
+  }
+
+  /* Mobile table scroll + safe area */
+  @supports (padding: env(safe-area-inset-left)) {
+    body {
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
+    }
+  }
+  @media (max-width: 780px) {
+    table {
+      display: block;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      max-width: 100%;
+      white-space: nowrap;
+      font-size: 13px;
+    }
+    th, td { padding: 8px 12px; }
+    pre { font-size: 11.5px; padding: 12px 14px; }
+  }
+
+  /* Mobile hamburger drawer */
+  .mobile-header { display: none; }
+  .sidebar-overlay { display: none; }
+
+  @media (max-width: 980px) {
+    .mobile-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
+      background: var(--cream);
+      border-bottom: 1px solid var(--border);
+    }
+    .mobile-header-title {
+      font-weight: 800;
+      font-size: 14px;
+    }
+    .mobile-header-sub {
+      font-family: 'Geist Mono', monospace;
+      font-size: 10px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .hamburger {
+      width: 40px; height: 40px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--white);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      padding: 0;
+      position: relative;
+    }
+    .hamburger::before,
+    .hamburger::after,
+    .hamburger > span {
+      content: '';
+      display: block;
+      width: 16px;
+      height: 2px;
+      background: var(--ink);
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .hamburger::before { content: ''; top: 12px; }
+    .hamburger > span { top: 19px; }
+    .hamburger::after { content: ''; top: 26px; }
+
+    .sidebar {
+      position: fixed !important;
+      top: 0; left: 0;
+      height: 100vh !important;
+      width: 280px;
+      transform: translateX(-100%);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      z-index: 200;
+      border-right: 1px solid var(--border);
+      border-bottom: none !important;
+    }
+    .sidebar.open {
+      transform: translateX(0);
+      box-shadow: 4px 0 32px rgba(28,27,23,0.18);
+    }
+    .sidebar-overlay {
+      display: block;
+      position: fixed;
+      inset: 0;
+      background: rgba(28, 27, 23, 0.4);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+      z-index: 150;
+    }
+    .sidebar-overlay.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .sidebar nav a { padding: 12px 16px; font-size: 15px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="mobile-header">
+  <div>
+    <div class="mobile-header-title">OpenClaw System</div>
+    <div class="mobile-header-sub">Mo's complete guide</div>
+  </div>
+  <button class="hamburger" onclick="openMenu()" aria-label="Open menu"><span></span></button>
+</header>
+<div class="sidebar-overlay" onclick="closeMenu()"></div>
+
+<div class="layout">
+
+<!-- Sidebar navigation -->
+<aside class="sidebar">
+  <div class="sidebar-title">OpenClaw System</div>
+  <div class="sidebar-sub">Mo's complete guide</div>
+  <nav>
+    <a class="section">Overview</a>
+    <a href="#overview">Big picture</a>
+    <a href="#team">The 14 agents</a>
+    <a href="#access">Access rules</a>
+
+    <a class="section">The rhythm</a>
+    <a href="#daily">Daily stand-ups</a>
+    <a href="#weekly">Weekly dreams</a>
+    <a href="#monthly">Monthly meta</a>
+    <a href="#backups">Backups &amp; monitoring</a>
+
+    <a class="section">Architecture</a>
+    <a href="#memory">Memory layers</a>
+    <a href="#handoff">Claude Code handoff</a>
+    <a href="#delegate">Delegate pattern</a>
+
+    <a class="section">Technical</a>
+    <a href="#commands">CLI commands</a>
+    <a href="#launchd">Scheduled jobs</a>
+    <a href="#recovery">Backup &amp; recovery</a>
+    <a href="#debugging">When things break</a>
+
+    <a class="section">Daily life</a>
+    <a href="#day-to-day">How you actually work</a>
+    <a href="#principles">Operating principles</a>
+    <a href="#todo">Open items</a>
+  </nav>
+</aside>
+
+<!-- Main content -->
+<main class="main">
+
+<header class="header">
+  <div class="eyebrow">Personal system · Confidential</div>
+  <h1>Your <span class="highlight">OpenClaw</span> system</h1>
+  <p class="subtitle">The complete operating manual for your AI team, the infrastructure that runs it, and how to interact with all of it day to day.</p>
+  <div class="meta">Version 1.0 · Last updated 19 Apr 2026 · Based on Karpathy's LLM Wiki pattern</div>
+</header>
+
+<section id="overview">
+<h2>The big picture</h2>
+<p class="lead">14 agents split across three pods (Sooner, Axeed, Personal). A handoff layer connecting them to Claude Code for heavy work. Memory that compiles and validates itself. Daily GitHub backups. All running on your Mac.</p>
+
+<div class="callout">
+<strong>Core insight:</strong> OpenClaw handles conversation and orchestration. Claude Code handles the heavy thinking. Memory lives in markdown files that compile and propagate rules automatically. Nothing is a chatbot - everything is a durable system.
+</div>
+
+<div class="callout-technical">
+<div class="label">Technical foundation</div>
+Architecture is an implementation of Andrej Karpathy's "LLM Wiki" pattern: raw notes → compiled summaries → validated → promoted → re-loaded. Memory lives in markdown on disk. Agents read the compiled layer first, raw layer only on demand. Periodic "dream cycles" detect patterns and promote stable knowledge to the canonical wiki.
+</div>
+</section>
+
+<div class="divider"></div>
+
+<section id="team">
+<h2>The 14 agents</h2>
+
+<div class="pod-section">
+<div class="pod-header">
+<div class="pod-name">Sooner pod</div>
+<div class="pod-sub">Product company</div>
+</div>
+<div class="cards">
+<div class="card"><div class="card-title">Lisa</div><div class="card-sub">Chief of Staff</div><div class="card-body">Daily stand-ups, weekly dreams, memory integration across the pod.</div></div>
+<div class="card"><div class="card-title">Draper</div><div class="card-sub">Head of Product</div><div class="card-body">Design, brand, frontend, backend, growth.</div></div>
+<div class="card"><div class="card-title">Dinesh</div><div class="card-sub">Engineer</div><div class="card-body">Backend, APIs, infrastructure.</div></div>
+<div class="card"><div class="card-title">Nora</div><div class="card-sub">Customer Success</div><div class="card-body">Support for Sooner and Rematch.</div></div>
+<div class="card"><div class="card-title">Reid</div><div class="card-sub">Investor Relations</div><div class="card-body">Fundraising pipeline and outreach.</div></div>
+<div class="card"><div class="card-title">Maya</div><div class="card-sub">Design &amp; Creative</div><div class="card-body">Visual assets complementing Draper.</div></div>
+</div>
+</div>
+
+<div class="pod-section">
+<div class="pod-header">
+<div class="pod-name">Axeed pod</div>
+<div class="pod-sub">Consultancy · Aurelius · Loyalty · Neo Fund · Click and Sign</div>
+</div>
+<div class="cards">
+<div class="card"><div class="card-title">Elon</div><div class="card-sub">CTO · Pod Lead</div><div class="card-body">Architecture, technical strategy, pod leadership. Reporting owner for the whole Axeed pod.</div></div>
+<div class="card"><div class="card-title">Tariq</div><div class="card-sub">Senior Engineer · Aurelius</div><div class="card-body">Aurelius product engineering. Shopify + custom architecture, owns the current build.</div></div>
+<div class="card"><div class="card-title">Samir</div><div class="card-sub">DRI · Aurelius &amp; Click and Sign</div><div class="card-body">Product DRI tracking priorities, blockers, owners. Coordinates with Tariq on Aurelius delivery.</div></div>
+<div class="card"><div class="card-title">Zane</div><div class="card-sub">Product Lead · Loyalty &amp; Neo Fund</div><div class="card-body">Product strategy, feature design, user flows, GTM for Axeed Loyalty and Neo Fund.</div></div>
+<div class="card"><div class="card-title">Jad</div><div class="card-sub">DRI · Loyalty, HR Leave, Estimate Calc</div><div class="card-body">Execution DRI across three lanes. Transitioning Loyalty from Elon, building HR Leave and Estimate Calculator.</div></div>
+</div>
+</div>
+
+<div class="pod-section">
+<div class="pod-header">
+<div class="pod-name">Personal pod</div>
+<div class="pod-sub">Your infrastructure, your health, your ops</div>
+</div>
+<div class="cards">
+<div class="card"><div class="card-title">Iris</div><div class="card-sub">EA · Infra Guardian · HR Lead</div><div class="card-body">Full ownership of the OpenClaw infrastructure. Calendar, coordination, cross-pod admin.</div></div>
+<div class="card"><div class="card-title">Cost Controller</div><div class="card-sub">Spend &amp; Disk Monitoring</div><div class="card-body">Watches OpenRouter spend, disk space, sends alerts via Telegram when thresholds are breached.</div></div>
+<div class="card"><div class="card-title">Dr. Phoenix</div><div class="card-sub">Personal Health Concierge</div><div class="card-body">Your family doctor. Primary focus: meniscus recovery. Prescribes exercises, tracks progress, manages medical records.</div></div>
+</div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<section id="access">
+<h2>Access rules: who can talk to whom</h2>
+
+<table>
+<thead>
+<tr>
+<th>Surface</th>
+<th>Mo</th>
+<th>Gabriel</th>
+<th>Others</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>Agent DMs (Slack or Telegram)</td><td><strong>Yes</strong></td><td>No</td><td>No</td></tr>
+<tr><td>Channels where agents are invited</td><td><strong>Yes</strong></td><td><strong>Yes</strong></td><td>Only if in the channel</td></tr>
+<tr><td>Nora in <code>#support</code> and similar public channels</td><td><strong>Yes</strong></td><td><strong>Yes</strong></td><td><strong>Yes</strong></td></tr>
+<tr><td>Other Sooner/Axeed channels where agents live</td><td><strong>Yes</strong></td><td><strong>Yes</strong></td><td><strong>Yes</strong></td></tr>
+</tbody>
+</table>
+
+<p>Gabriel gets channel-level access to all agents once his Slack ID is added. DMs are always Mo-only.</p>
+</section>
+
+<div class="divider"></div>
+
+<section id="daily">
+<h2>Daily stand-ups</h2>
+
+<p>Every weekday at 8:00 AM Dubai time, three triggers fire in parallel:</p>
+
+<table>
+<thead>
+<tr><th>Agent</th><th>Surface</th><th>Scope</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Lisa</strong></td><td>Slack <code>#sooner-ai-leadership</code></td><td>Sooner pod stand-up</td></tr>
+<tr><td><strong>Elon</strong></td><td>Telegram DM to Mo</td><td>Axeed pod stand-up</td></tr>
+<tr><td><strong>Iris</strong></td><td>Telegram DM to Mo</td><td>Personal and cross-pod brief</td></tr>
+</tbody>
+</table>
+
+<p>Stand-ups are operational only. They summarize yesterday, flag today's priorities, and surface any decisions needed from Mo. They do not modify the wiki or protocol files.</p>
+
+<div class="callout-soft">
+<strong>Reading discipline:</strong> each stand-up is designed to read in under 60 seconds. If they grow longer, it's a signal something is wrong in the synthesis.
+</div>
+
+<div class="callout-technical">
+<div class="label">Technical detail</div>
+Triggered by launchd jobs (<code>ai.openclaw.standup.{lisa,elon,iris}</code>). Each trigger runs openclaw-delegate to synthesize via Claude Code (cheap), then makes a small OpenRouter call via the agent to post the result to its configured surface.
+</div>
+</section>
+
+<section id="weekly">
+<h2>Weekly dream cycles</h2>
+
+<p>Sunday 7:00 PM Dubai. Two triggers fire:</p>
+
+<table>
+<thead>
+<tr><th>Agent</th><th>Surface</th><th>Scope</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Lisa</strong></td><td>Slack <code>#sooner-ai-leadership</code> (team visible)</td><td>Sooner weekly dream</td></tr>
+<tr><td><strong>Elon</strong></td><td>Telegram DM to Mo</td><td>Axeed weekly dream</td></tr>
+</tbody>
+</table>
+
+<p>Dream cycles synthesize the week and produce:</p>
+<ul>
+<li><strong>Patterns observed</strong> - rules Mo repeated, agent convergence</li>
+<li><strong>Auto-promotions</strong> - high-confidence rules written directly to the wiki</li>
+<li><strong>Proposals awaiting approval</strong> - medium-confidence items numbered for Mo to approve or reject</li>
+<li><strong>Stale or contradictory items</strong> - things in memory that look wrong</li>
+<li><strong>Agent health</strong> - who was active, who was idle</li>
+</ul>
+
+<div class="callout">
+<strong>Auto-promotion policy:</strong> High-confidence rules (said 3+ times across different contexts) get written to the wiki automatically. Medium-confidence items need your explicit approval. DECISIONS.md and protocol files never auto-promote.
+</div>
+</section>
+
+<section id="monthly">
+<h2>Monthly cross-pod review</h2>
+
+<p>1st of every month, 9:00 AM Dubai. Iris runs a cross-pod dream that sits on top of Lisa's and Elon's weekly ones.</p>
+
+<p>She covers:</p>
+<ul>
+<li>Patterns appearing in both pods that should be cross-pod standards</li>
+<li>Agents in different pods stepping on each other's scope</li>
+<li>System-level patterns and health</li>
+<li>Role boundary issues</li>
+</ul>
+
+<p>Cross-pod rules never auto-promote. Always proposed, never written without your approval.</p>
+</section>
+
+<section id="backups">
+<h2>Backups and monitoring</h2>
+
+<table>
+<thead>
+<tr><th>What</th><th>When</th><th>Where</th></tr>
+</thead>
+<tbody>
+<tr><td>GitHub backup</td><td>Daily 3:17 AM Dubai</td><td><code>github.com/moaziz-ai/openclaw-config</code> (private)</td></tr>
+<tr><td>Disk space check</td><td>Every 6 hours</td><td>Telegram alert via Cost Controller if below 20GB</td></tr>
+</tbody>
+</table>
+
+<div class="callout-soft">
+The backup excludes secrets, browser state, session transcripts, and binaries. A secret scanner blocks commits that contain real credentials. Your <code>.env</code> must be backed up separately (1Password recommended).
+</div>
+</section>
+
+<div class="divider"></div>
+
+<section id="memory">
+<h2>Memory architecture</h2>
+
+<p>Five layers, ordered from raw to canonical:</p>
+
+<h3>1. Agent daily notes <span class="tag tag-office">Per-agent · Raw</span></h3>
+<p>Raw daily logs written by each agent during work. Personal, ephemeral, feeds into higher layers.</p>
+<pre><code>~/.openclaw/agents/*/memory/YYYY-MM-DD.md</code></pre>
+
+<h3>2. Agent MEMORY.md <span class="tag tag-office">Per-agent · Curated</span></h3>
+<p>Durable memory per agent. How that agent operates. Updated when something stable emerges.</p>
+<pre><code>~/.openclaw/agents/*/MEMORY.md</code></pre>
+
+<h3>3. Shared pod current truth <span class="tag tag-office">Pod-wide · Live</span></h3>
+<p>What is happening right now at the pod level. Refreshed as state changes.</p>
+<pre><code>~/.openclaw/shared-memory/{sooner,axeed,personal}/STATUS.md
+~/.openclaw/shared-memory/{sooner,axeed,personal}/DECISIONS.md
+~/.openclaw/shared-memory/{sooner,axeed,personal}/PROJECTS.md</code></pre>
+
+<h3>4. Wiki <span class="tag tag-office">Pod-wide · Canonical</span></h3>
+<p>Canonical truth. Brand, product, architecture, fundraising. Changes only via dream cycles with your approval.</p>
+<pre><code>~/.openclaw/wiki/{sooner,axeed}/</code></pre>
+
+<h3>5. Protocol files <span class="tag tag-office">Functional playbooks</span></h3>
+<p>Long-form operating playbooks:</p>
+<ul>
+<li>Draper's <code>BRAND_PROTOCOL.md</code></li>
+<li>Reid's <code>FUNDRAISING_PROTOCOL.md</code></li>
+<li>Nora's <code>SUPPORT_PROTOCOL.md</code></li>
+</ul>
+
+<div class="callout-technical">
+<div class="label">The promotion flow (Karpathy compound loop)</div>
+Agent activity → daily notes (raw) → Sunday dream review → classification (auto/propose/info) → high-confidence writes directly to wiki → medium-confidence proposals wait for approval → approved writes happen → next session inherits updated wiki via CLAUDE.md pointers.
+</div>
+</section>
+
+<div class="divider"></div>
+
+<section id="handoff">
+<h2>The Claude Code handoff system</h2>
+
+<p>When building software, agents use one of five modes. Each starts with a project folder that persists and becomes the single source of truth for that work.</p>
+
+<table>
+<thead>
+<tr><th>Mode</th><th>What it means</th><th>When to use</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Launch</strong></td><td>Fresh project in an agent's domain, Mo drives in Claude Code</td><td>Starting something new at your laptop</td></tr>
+<tr><td><strong>Create</strong></td><td>Agent writes a brief, Mo drives</td><td>Agent-planned work you want to build yourself</td></tr>
+<tr><td><strong>Spawn</strong></td><td>Agent builds in the background</td><td>You're on the road, agent handles it</td></tr>
+<tr><td><strong>Continue</strong></td><td>Agent keeps building on an existing project</td><td>Follow-up work on something already scaffolded</td></tr>
+<tr><td><strong>Adopt</strong></td><td>Retrofit a folder you already built solo</td><td>You worked alone, want an agent to take over</td></tr>
+</tbody>
+</table>
+
+<p>Plus two control flows:</p>
+<ul>
+<li><strong>Takeover</strong> - stop a background build, hand to Mo interactively</li>
+<li><strong>Stop</strong> - kill a background build without handoff</li>
+</ul>
+
+<h3>What lives in every project folder</h3>
+<table>
+<thead><tr><th>File</th><th>Purpose</th></tr></thead>
+<tbody>
+<tr><td><code>BRIEF.md</code></td><td>The task brief</td></tr>
+<tr><td><code>CLAUDE.md</code></td><td>Auto-loaded agent identity when you open Claude Code</td></tr>
+<tr><td><code>.openclaw-project.json</code></td><td>Agent + pod ownership tag</td></tr>
+<tr><td><code>.claude/settings.local.json</code></td><td>Hooks that log activity to live-status.md</td></tr>
+<tr><td><code>PROJECT_SUMMARY.md</code></td><td>Compiled state (auto-regenerated after substantive sessions)</td></tr>
+<tr><td><code>PREFERENCES.md</code></td><td>Standing rules declared during Claude Code sessions</td></tr>
+</tbody>
+</table>
+
+<div class="callout-technical">
+<div class="label">Auto-compile</div>
+After every substantive Claude Code session (default: 30+ new log lines), a Python double-fork daemon spawns a detached claude process that reads the raw live-status log plus the project files and writes a compiled PROJECT_SUMMARY.md. Next session opens with the compiled state loaded first, raw log only when needed. Scales to hundreds of sessions without the log becoming unreadable.
+</div>
+</section>
+
+<div class="divider"></div>
+
+<section id="delegate">
+<h2>The delegate pattern (cost savings)</h2>
+
+<p>OpenClaw agent turns use OpenRouter credits (real per-token cost). Claude Code uses your Claude Max subscription (fixed monthly, effectively free within cap). The delegate pattern offloads heavy work from OpenRouter to Claude Code.</p>
+
+<h3>When to delegate</h3>
+<p><strong>Delegate for:</strong></p>
+<ul>
+<li>Drafting long emails (investor updates, contract reviews)</li>
+<li>Memory synthesis (dreams, monthly reviews)</li>
+<li>Mass operations (triage 50 emails, review 20 PRs)</li>
+<li>Research passes (reading many docs, producing reports)</li>
+<li>Anything requiring more than ~1000 tokens of context</li>
+</ul>
+
+<p><strong>Don't delegate for:</strong></p>
+<ul>
+<li>Conversational replies (overhead ruins the live feel)</li>
+<li>Short tasks under 200 words</li>
+<li>Time-sensitive acknowledgments</li>
+</ul>
+
+<div class="callout">
+<strong>Estimated savings:</strong> $100 to $250 per month by offloading all synthesis tasks. Dream cycles alone save $50 to $100 per month at typical usage.
+</div>
+
+<pre><code>openclaw-delegate \
+  --agent nora \
+  --task "Triage these 30 emails. Classify by urgency, propose reply drafts..." \
+  --context ~/nora-inbox-dump.md \
+  --output ~/nora-triage-result.md</code></pre>
+</section>
+
+<div class="divider"></div>
+
+<section id="commands">
+<h2>CLI commands (technical reference)</h2>
+
+<p>All commands live in <code>~/.local/bin/</code> and are on your PATH.</p>
+
+<table>
+<thead>
+<tr><th>Command</th><th>Purpose</th></tr>
+</thead>
+<tbody>
+<tr><td><code>openclaw</code></td><td>The main OpenClaw CLI (gateway, agent, config)</td></tr>
+<tr><td><code>openclaw-project launch</code></td><td>Start fresh project in an agent's domain</td></tr>
+<tr><td><code>openclaw-project create</code></td><td>Scaffold project with a specific brief</td></tr>
+<tr><td><code>openclaw-project spawn</code></td><td>Scaffold and run Claude Code in background</td></tr>
+<tr><td><code>openclaw-project continue</code></td><td>Add more background work to existing project</td></tr>
+<tr><td><code>openclaw-project adopt</code></td><td>Retrofit existing folder</td></tr>
+<tr><td><code>openclaw-project takeover</code></td><td>Stop background build, switch to interactive</td></tr>
+<tr><td><code>openclaw-project stop</code></td><td>Kill background build</td></tr>
+<tr><td><code>openclaw-project compile</code></td><td>Recompile PROJECT_SUMMARY.md</td></tr>
+<tr><td><code>openclaw-project status</code></td><td>Show activity for a project</td></tr>
+<tr><td><code>openclaw-project list</code></td><td>List all projects</td></tr>
+<tr><td><code>openclaw-project is-running</code></td><td>Check if background is active</td></tr>
+<tr><td><code>openclaw-project last-session</code></td><td>Check how last session ended (clean/incomplete/stopped)</td></tr>
+<tr><td><code>openclaw-delegate</code></td><td>Offload work to Claude Code</td></tr>
+<tr><td><code>openclaw-dream-digest</code></td><td>Generate a pod memory digest</td></tr>
+<tr><td><code>openclaw-backup</code></td><td>Push config to GitHub</td></tr>
+<tr><td><code>claude</code></td><td>Claude Code CLI</td></tr>
+</tbody>
+</table>
+</section>
+
+<div class="divider"></div>
+
+<section id="launchd">
+<h2>Scheduled jobs (launchd)</h2>
+
+<table>
+<thead>
+<tr><th>Label</th><th>Schedule</th><th>Purpose</th></tr>
+</thead>
+<tbody>
+<tr><td><code>ai.openclaw.gateway</code></td><td>Boot + auto-restart</td><td>OpenClaw gateway process</td></tr>
+<tr><td><code>ai.openclaw.standup.lisa</code></td><td>Daily 8:00 AM</td><td>Sooner stand-up</td></tr>
+<tr><td><code>ai.openclaw.standup.elon</code></td><td>Daily 8:00 AM</td><td>Axeed stand-up</td></tr>
+<tr><td><code>ai.openclaw.standup.iris</code></td><td>Daily 8:00 AM</td><td>Cross-pod brief</td></tr>
+<tr><td><code>ai.openclaw.dream.lisa</code></td><td>Sunday 7:00 PM</td><td>Sooner weekly dream</td></tr>
+<tr><td><code>ai.openclaw.dream.elon</code></td><td>Sunday 7:00 PM</td><td>Axeed weekly dream</td></tr>
+<tr><td><code>ai.openclaw.dream.iris-monthly</code></td><td>1st of month, 9:00 AM</td><td>Cross-pod monthly dream</td></tr>
+<tr><td><code>ai.openclaw.backup</code></td><td>Daily 3:17 AM</td><td>GitHub backup</td></tr>
+<tr><td><code>ai.openclaw.disk-monitor</code></td><td>Every 6 hours</td><td>Disk space check</td></tr>
+</tbody>
+</table>
+
+<div class="callout-technical">
+<div class="label">Inspect running jobs</div>
+launchctl list | grep ai.openclaw<br><br>
+Plist files live in <code>~/Library/LaunchAgents/</code>. The schedule definitions live in <code>~/.openclaw/dreams/scheduler/</code>. Trigger logs: <code>~/.openclaw/dreams/scheduler/logs/</code>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<section id="recovery">
+<h2>Backup and recovery</h2>
+
+<h3>What is backed up</h3>
+<p>Everything in <code>~/.openclaw/</code> except the excluded items below. 674 files on initial push, auto-synced daily.</p>
+
+<h3>What is NOT backed up (intentionally)</h3>
+<ul>
+<li><code>.env</code> (Slack/Telegram/OpenRouter tokens) - store in 1Password</li>
+<li><code>browser/</code> (Chrome profiles, cookies)</li>
+<li><code>credentials/</code>, <code>identity/</code></li>
+<li><code>*/sessions/*.jsonl</code> (conversational transcripts)</li>
+<li>Delegation temp folders</li>
+<li>Caches, logs, binaries over 100MB</li>
+</ul>
+
+<h3>Recovery path if your Mac dies</h3>
+<ol>
+<li>Install OpenClaw, Claude Code, Node, gh CLI on the new machine</li>
+<li>Clone <code>github.com/moaziz-ai/openclaw-config</code> to <code>~/.openclaw/</code></li>
+<li>Restore <code>.env</code> from 1Password</li>
+<li>Re-authenticate integrations: <code>gog auth</code>, <code>op signin</code>, <code>gh auth login</code></li>
+<li>Run <code>openclaw gateway restart</code></li>
+<li>Your agents come back with full memory intact</li>
+</ol>
+</section>
+
+<section id="debugging">
+<h2>When things break</h2>
+
+<table>
+<thead>
+<tr><th>Symptom</th><th>Likely cause</th><th>Where to look</th></tr>
+</thead>
+<tbody>
+<tr><td>Agents stop responding on Telegram/Slack</td><td>Gateway down</td><td><code>~/.openclaw/logs/</code> or <code>openclaw status</code></td></tr>
+<tr><td>Backup fails</td><td>Big file or auth issue</td><td><code>~/.openclaw/handoff-system/logs/backup.log</code></td></tr>
+<tr><td>Dream cycle doesn't fire</td><td>launchd job unloaded</td><td><code>~/.openclaw/dreams/scheduler/logs/</code></td></tr>
+<tr><td>Claude Code hooks don't fire</td><td>Missing <code>.claude/settings.local.json</code></td><td>Project folder</td></tr>
+<tr><td>Disk filling up</td><td>Old delegation folders, session files</td><td>Cost Controller alert on Telegram</td></tr>
+<tr><td>Agent giving wrong answers</td><td>Stale memory</td><td>Tell Mo → agent updates MEMORY.md</td></tr>
+</tbody>
+</table>
+</section>
+
+<div class="divider"></div>
+
+<section id="day-to-day">
+<h2>How you actually work day-to-day</h2>
+
+<h3>Morning</h3>
+<ul>
+<li>Open Telegram, read three stand-ups (Lisa in Slack, Elon and Iris on Telegram)</li>
+<li>Respond to numbered decisions when you can. Hours later or end of day is fine, agents don't chase.</li>
+</ul>
+
+<h3>During the day</h3>
+<ul>
+<li>Message agents in Telegram/Slack for operational work</li>
+<li>For building: launch a project from Telegram ("Draper, set me up a project for X") or directly via <code>openclaw-project launch</code></li>
+<li>Heavy synthesis requests auto-route to Claude Code via delegate</li>
+</ul>
+
+<h3>Sunday evening</h3>
+<ul>
+<li>Read two weekly dream summaries</li>
+<li>Approve/reject medium-confidence proposals</li>
+<li>High-confidence auto-promotions already done</li>
+</ul>
+
+<h3>Monthly</h3>
+<ul>
+<li>Iris's cross-pod dream arrives on the 1st</li>
+<li>Approve any cross-pod rule changes</li>
+</ul>
+</section>
+
+<section id="principles">
+<h2>Operating principles</h2>
+
+<div class="callout-soft">
+<strong>1. Don't micromanage.</strong> If you repeat a rule 3+ times, the dream cycle auto-promotes it. You don't need to manually add it to the wiki.
+</div>
+
+<div class="callout-soft">
+<strong>2. Use delegate for heavy work.</strong> Agents will offload long synthesis to Claude Code. This saves real money.
+</div>
+
+<div class="callout-soft">
+<strong>3. Trust the hooks.</strong> Open Claude Code in a project folder, CLAUDE.md auto-loads. Don't re-brief manually.
+</div>
+
+<div class="callout-soft">
+<strong>4. Approvals are async.</strong> Agents don't chase. Reply on your own timeline.
+</div>
+
+<div class="callout-soft">
+<strong>5. When in doubt, ask Iris.</strong> She owns the infrastructure. If something feels off, tell her.
+</div>
+</section>
+
+<section id="todo">
+<h2>Open items and future improvements</h2>
+
+<ul>
+<li>Add Gabriel's Slack user ID to all agents (waiting on ID from you)</li>
+<li>Decide if Iris should also produce a monthly summary doc alongside Telegram</li>
+<li>Extend delegate pattern to more agents as usage grows</li>
+<li>Periodic review of delegate output quality vs. direct OpenRouter output</li>
+<li>Consider Quality Gate agent (Karpathy's validator pattern) for cross-pod memory integrity</li>
+</ul>
+</section>
+
+<div class="divider"></div>
+
+<footer class="footer">
+<p><strong>OpenClaw personal system</strong> · Maintained by Iris · Architecture inspired by Andrej Karpathy's LLM Wiki pattern (April 2026) · Daily auto-backup to <code>github.com/moaziz-ai/openclaw-config</code></p>
+</footer>
+
+</main>
+</div>
+
+<script>
+function openMenu() {
+  document.querySelector('.sidebar').classList.add('open');
+  document.querySelector('.sidebar-overlay').classList.add('visible');
+}
+function closeMenu() {
+  document.querySelector('.sidebar').classList.remove('open');
+  document.querySelector('.sidebar-overlay').classList.remove('visible');
+}
+document.querySelectorAll('.sidebar nav a[href]').forEach(a => a.addEventListener('click', () => {
+  if (window.innerWidth <= 980) closeMenu();
+}));
+</script>
+</body>
+</html>

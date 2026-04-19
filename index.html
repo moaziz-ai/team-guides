@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Team guides</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1C1B17;
+    --yellow: #E9FE0F;
+    --lime: #B8FF3D;
+    --cream: #F5F4F0;
+    --cream-soft: #EEEEE9;
+    --white: #FFFFFF;
+    --border: #E5E3DC;
+    --muted: #6B6A63;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.6;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 72px 32px 96px;
+  }
+
+  .header {
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 48px;
+  }
+
+  .eyebrow {
+    font-family: 'Geist Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 14px;
+  }
+
+  h1 {
+    font-size: 56px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.02;
+    margin-bottom: 18px;
+  }
+
+  h1 .highlight-y {
+    background: linear-gradient(transparent 15%, var(--yellow) 15%, var(--yellow) 82%, transparent 82%);
+    padding: 0 4px;
+  }
+
+  .subtitle {
+    font-size: 19px;
+    color: var(--muted);
+    max-width: 640px;
+  }
+
+  .pod-group {
+    margin-top: 56px;
+  }
+
+  .pod-label {
+    font-family: 'Geist Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .pod-label::before {
+    content: '';
+    width: 20px;
+    height: 2px;
+    background: var(--ink);
+  }
+
+  .guide-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 16px;
+  }
+
+  .guide-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px 26px;
+    text-decoration: none;
+    color: var(--ink);
+    display: block;
+    transition: all 0.18s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .guide-card::after {
+    content: '→';
+    position: absolute;
+    right: 22px;
+    top: 26px;
+    font-size: 22px;
+    color: var(--muted);
+    transition: transform 0.18s ease, color 0.18s ease;
+  }
+
+  .guide-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(28,27,23,0.08);
+    border-color: var(--ink);
+  }
+
+  .guide-card:hover::after {
+    transform: translateX(4px);
+    color: var(--ink);
+  }
+
+  .guide-card.sooner:hover {
+    border-color: var(--ink);
+  }
+
+  .guide-card.axeed:hover {
+    border-color: var(--ink);
+  }
+
+  .guide-card .tag {
+    display: inline-block;
+    font-family: 'Geist Mono', monospace;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 999px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 14px;
+  }
+
+  .guide-card.sooner .tag {
+    background: var(--yellow);
+    color: var(--ink);
+  }
+
+  .guide-card.axeed .tag {
+    background: var(--lime);
+    color: var(--ink);
+  }
+
+  .guide-card h2 {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+    margin-bottom: 8px;
+    padding-right: 30px;
+  }
+
+  .guide-card p {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .guide-card .depth {
+    display: inline-block;
+    font-family: 'Geist Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+    width: 100%;
+  }
+
+  .access-note {
+    margin-top: 72px;
+    padding: 24px 28px;
+    background: var(--cream-soft);
+    border-left: 4px solid var(--yellow);
+    border-radius: 8px;
+    font-size: 15px;
+    line-height: 1.55;
+  }
+
+  .access-note strong { font-weight: 700; }
+
+  .footer {
+    margin-top: 72px;
+    padding-top: 28px;
+    border-top: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--muted);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .footer .logo {
+    font-weight: 800;
+    font-size: 14px;
+    letter-spacing: -0.01em;
+  }
+
+  @media (max-width: 640px) {
+    .container { padding: 40px 20px 64px; }
+    h1 { font-size: 36px; }
+    .subtitle { font-size: 16px; }
+    .guide-grid { grid-template-columns: 1fr; }
+    .guide-card { padding: 22px 20px; }
+    .guide-card h2 { font-size: 18px; }
+    .pod-group { margin-top: 40px; }
+  }
+
+  @supports (padding: env(safe-area-inset-left)) {
+    body {
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<header class="header">
+  <div class="eyebrow">Internal documentation · Confidential</div>
+  <h1>Team <span class="highlight-y">guides</span></h1>
+  <p class="subtitle">Internal operating guides for how the AI teams at Sooner and Axeed work, for the people who work with them.</p>
+</header>
+
+<section class="pod-group">
+<div class="pod-label">Sooner</div>
+<div class="guide-grid">
+
+<a class="guide-card sooner" href="./sooner-team-guide.html">
+<span class="tag">For the team</span>
+<h2>Working with the Sooner AI team</h2>
+<p>How to ask for work, get answers, and collaborate with the agents who handle our day-to-day operations. Start here if you work at Sooner.</p>
+<div class="depth">Overview · Everyone</div>
+</a>
+
+<a class="guide-card sooner" href="./sooner-cto-guide.html">
+<span class="tag">Technical guide</span>
+<h2>How Sooner's AI team actually works</h2>
+<p>The complete technical operating manual for the AI system powering Sooner's operations. Memory architecture, handoff system, delegate pattern, CLI reference, recovery paths.</p>
+<div class="depth">Full depth · For CTOs &amp; engineering leads</div>
+</a>
+
+</div>
+</section>
+
+<section class="pod-group">
+<div class="pod-label">Axeed</div>
+<div class="guide-grid">
+
+<a class="guide-card axeed" href="./axeed-team-guide.html">
+<span class="tag">For the team</span>
+<h2>Working with the Axeed AI team</h2>
+<p>How to collaborate with the agents handling architecture, product, and operations across Aurelius, Neo Fund, Loyalty, and the wider pod.</p>
+<div class="depth">Overview · Everyone</div>
+</a>
+
+<a class="guide-card axeed" href="./axeed-cto-guide.html">
+<span class="tag">Technical guide</span>
+<h2>How Axeed's AI team actually works</h2>
+<p>The complete technical operating manual for the AI system powering Axeed's operations across all lanes. Same depth as the Sooner CTO guide, scoped to Axeed.</p>
+<div class="depth">Full depth · For CTOs &amp; engineering leads</div>
+</a>
+
+</div>
+</section>
+
+<aside class="access-note">
+<strong>Access rules:</strong> DMs to any agent are Mo-only. Anyone in a channel an agent is invited to can message that agent in the channel. Gabriel has channel-level access across all agents. For anything off-pattern or unclear, escalate to Mo.
+</aside>
+
+<footer class="footer">
+<span class="logo">Mo Aziz · moaziz-ai</span>
+<span>Updated 19 Apr 2026</span>
+</footer>
+
+</div>
+</body>
+</html>

@@ -531,18 +531,17 @@ Architecture is an implementation of Andrej Karpathy's "LLM Wiki" pattern (April
 <tr>
 <th>Surface</th>
 <th>Mo</th>
-<th>Gabriel</th>
-<th>Other Axeed team</th>
+<th>Axeed team</th>
 </tr>
 </thead>
 <tbody>
-<tr><td>Agent DMs (Slack or Telegram)</td><td><strong>Yes</strong></td><td>No</td><td>No</td></tr>
-<tr><td>Channels where agents are invited</td><td><strong>Yes</strong></td><td><strong>Yes</strong></td><td>Only if in the channel</td></tr>
-<tr><td>Axeed channels where agents live</td><td><strong>Yes</strong></td><td><strong>Yes</strong></td><td><strong>Yes</strong></td></tr>
+<tr><td>Agent DMs (Slack or Telegram)</td><td><strong>Yes</strong></td><td>No</td></tr>
+<tr><td>Channels where agents are invited</td><td><strong>Yes</strong></td><td>Only if in the channel</td></tr>
+<tr><td>Axeed channels where agents live</td><td><strong>Yes</strong></td><td><strong>Yes</strong></td></tr>
 </tbody>
 </table>
 
-<p>Gabriel gets channel-level access to all agents. DMs are always Mo-only. The rest of the team can ping any agent in a channel that agent is already invited to.</p>
+<p>DMs to any agent are Mo-only. The rest of the team can ping any agent in a channel that agent is already invited to. Non-Mo requests in channels are read-only by default - agents will explain, summarize, advise, but will not execute external actions for anyone except Mo unless Mo explicitly authorizes.</p>
 
 <div class="callout-technical">
 <div class="label">Enforcement</div>
@@ -875,7 +874,7 @@ Plist files in <code>~/Library/LaunchAgents/</code>. Schedule definitions live i
 <section id="day-to-day">
 <h2>Working with the Axeed team</h2>
 
-<p>For the rest of the team (you, CTO, Gabriel, anyone else):</p>
+<p>For the rest of the team (you, CTO, anyone else on Axeed):</p>
 
 <h3>Your morning routine with the agents</h3>
 <ul>

@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OpenClaw cheat sheet - Mo</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1C1B17;
+    --yellow: #E9FE0F;
+    --yellow-soft: #E2F55C;
+    --lime: #B8FF3D;
+    --cream: #F5F4F0;
+    --cream-soft: #EEEEE9;
+    --white: #FFFFFF;
+    --border: #E5E3DC;
+    --muted: #6B6A63;
+    --muted-light: #9A9890;
+    --success: #00A864;
+    --warning: #D97706;
+    --danger: #DC2626;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+
+  body {
+    font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.6;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .layout {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  .sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    padding: 32px 24px;
+    border-right: 1px solid var(--border);
+    background: var(--cream);
+    overflow-y: auto;
+  }
+  .sidebar-title { font-weight: 800; font-size: 16px; margin-bottom: 4px; }
+  .sidebar-sub {
+    font-family: 'Geist Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 32px;
+  }
+  .sidebar nav a {
+    display: block;
+    padding: 8px 12px;
+    font-size: 14px;
+    color: var(--muted);
+    text-decoration: none;
+    border-radius: 6px;
+    margin-bottom: 2px;
+    transition: all 0.1s ease;
+  }
+  .sidebar nav a:hover { background: var(--cream-soft); color: var(--ink); }
+  .sidebar nav a.section {
+    font-family: 'Geist Mono', monospace;
+    font-size: 11px;
+    color: var(--muted-light);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-top: 20px;
+    margin-bottom: 4px;
+    padding: 4px 12px;
+    pointer-events: none;
+    font-weight: 500;
+  }
+
+  .main { padding: 48px 48px 96px; max-width: 880px; }
+
+  .header {
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 48px;
+  }
+  .eyebrow {
+    font-family: 'Geist Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 12px;
+  }
+  h1 {
+    font-size: 48px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    margin-bottom: 16px;
+  }
+  h1 .highlight {
+    background: linear-gradient(transparent 15%, var(--yellow) 15%, var(--yellow) 82%, transparent 82%);
+    padding: 0 4px;
+  }
+  .subtitle { font-size: 20px; color: var(--muted); max-width: 620px; }
+  .meta {
+    font-family: 'Geist Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 24px;
+  }
+
+  h2 {
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin: 64px 0 20px;
+    scroll-margin-top: 80px;
+  }
+  h2::before {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 4px;
+    background: var(--ink);
+    margin-bottom: 16px;
+  }
+  h3 {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 36px 0 14px;
+    scroll-margin-top: 80px;
+  }
+  h4 { font-size: 17px; font-weight: 700; margin: 24px 0 8px; }
+
+  p { margin-bottom: 16px; }
+  p.lead { font-size: 18px; color: var(--ink); }
+
+  ul, ol { margin: 0 0 20px 0; padding-left: 24px; }
+  li { margin-bottom: 8px; }
+
+  strong { font-weight: 700; }
+
+  code {
+    font-family: 'Geist Mono', monospace;
+    font-size: 13px;
+    background: var(--cream-soft);
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+
+  pre {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 16px 20px;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-family: 'Geist Mono', monospace;
+    font-size: 13px;
+    line-height: 1.55;
+    margin: 16px 0;
+  }
+  pre code { background: none; color: inherit; padding: 0; font-size: 13px; }
+
+  table { width: 100%; border-collapse: collapse; margin: 16px 0 24px; font-size: 14px; }
+  thead tr { background: var(--cream-soft); border-bottom: 2px solid var(--ink); }
+  th { text-align: left; padding: 10px 14px; font-weight: 700; font-size: 13px; }
+  td { padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tbody tr:hover { background: var(--cream-soft); }
+
+  /* Scenario cards - the heart of this page */
+  .scenario {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px;
+    margin: 20px 0;
+  }
+  .scenario-header {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    margin-bottom: 16px;
+  }
+  .scenario-badge {
+    flex-shrink: 0;
+    font-family: 'Geist Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 999px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    background: var(--yellow);
+    color: var(--ink);
+    margin-top: 2px;
+  }
+  .scenario-badge.axeed { background: var(--lime); }
+  .scenario-badge.neutral { background: var(--cream-soft); color: var(--ink); }
+  .scenario-badge.danger { background: #FEE2E2; color: var(--danger); }
+  .scenario-title {
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -0.005em;
+    line-height: 1.25;
+  }
+  .scenario-say-label {
+    font-family: 'Geist Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 16px 0 6px;
+  }
+  .scenario-quote {
+    background: var(--cream);
+    border-left: 3px solid var(--yellow);
+    padding: 14px 18px;
+    border-radius: 0 8px 8px 0;
+    margin-bottom: 12px;
+    font-size: 15px;
+    line-height: 1.55;
+  }
+  .scenario-quote.axeed { border-left-color: var(--lime); }
+  .scenario-quote em {
+    color: var(--muted);
+    font-style: normal;
+    font-size: 13px;
+    display: block;
+    margin-top: 6px;
+    font-family: 'Geist Mono', monospace;
+  }
+  .scenario-then {
+    font-size: 14px;
+    color: var(--muted);
+    margin-top: 8px;
+  }
+  .scenario-then strong { color: var(--ink); }
+
+  /* Key-command boxes */
+  .command-box {
+    background: var(--ink);
+    color: var(--cream);
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin: 12px 0 20px;
+    font-family: 'Geist Mono', monospace;
+    font-size: 13px;
+    overflow-x: auto;
+    position: relative;
+  }
+  .command-box .label {
+    position: absolute;
+    top: -10px;
+    left: 14px;
+    background: var(--yellow);
+    color: var(--ink);
+    font-size: 10px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 999px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .callout {
+    background: var(--yellow);
+    padding: 20px 24px;
+    border-radius: 8px;
+    margin: 24px 0;
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .callout-soft {
+    background: var(--cream-soft);
+    padding: 18px 22px;
+    border-radius: 8px;
+    margin: 20px 0;
+    border-left: 4px solid var(--yellow);
+    font-size: 15px;
+  }
+  .callout-warning {
+    background: #FEF3C7;
+    padding: 18px 22px;
+    border-radius: 8px;
+    margin: 20px 0;
+    border-left: 4px solid var(--warning);
+    font-size: 15px;
+  }
+  .callout-danger {
+    background: #FEE2E2;
+    padding: 18px 22px;
+    border-radius: 8px;
+    margin: 20px 0;
+    border-left: 4px solid var(--danger);
+    font-size: 15px;
+  }
+
+  .divider { height: 1px; background: var(--border); margin: 48px 0; }
+
+  .decision-tree {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin: 20px 0;
+    font-size: 15px;
+  }
+  .decision-tree .q {
+    font-weight: 700;
+    margin: 12px 0 6px;
+    padding-left: 0;
+  }
+  .decision-tree .q.root { margin-top: 0; }
+  .decision-tree .yes,
+  .decision-tree .no {
+    margin-left: 20px;
+    padding-left: 14px;
+    border-left: 2px solid var(--border);
+    margin-bottom: 6px;
+  }
+  .decision-tree .yes::before { content: '✓ '; color: var(--success); font-weight: 700; }
+  .decision-tree .no::before { content: '✗ '; color: var(--danger); font-weight: 700; }
+
+  .tag {
+    display: inline-block;
+    font-family: 'Geist Mono', monospace;
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+    margin-right: 4px;
+    background: var(--cream-soft);
+    color: var(--ink);
+  }
+  .tag-tg { background: #0088cc; color: white; }
+  .tag-sl { background: #4A154B; color: white; }
+  .tag-cc { background: var(--ink); color: var(--cream); }
+  .tag-term { background: var(--ink); color: var(--cream); }
+
+  .footer {
+    margin-top: 72px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .mobile-header { display: none; }
+  .sidebar-overlay { display: none; }
+
+  @media (max-width: 980px) {
+    .mobile-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
+      background: var(--cream);
+      border-bottom: 1px solid var(--border);
+    }
+    .mobile-header-title { font-weight: 800; font-size: 14px; }
+    .mobile-header-sub {
+      font-family: 'Geist Mono', monospace;
+      font-size: 10px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .hamburger {
+      width: 40px; height: 40px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--white);
+      cursor: pointer;
+      position: relative;
+    }
+    .hamburger::before,
+    .hamburger::after,
+    .hamburger > span {
+      display: block;
+      width: 16px;
+      height: 2px;
+      background: var(--ink);
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .hamburger::before { content: ''; top: 12px; }
+    .hamburger > span { top: 19px; }
+    .hamburger::after { content: ''; top: 26px; }
+
+    .layout { grid-template-columns: 1fr; }
+    .sidebar {
+      position: fixed !important;
+      top: 0; left: 0;
+      height: 100vh !important;
+      width: 280px;
+      transform: translateX(-100%);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      z-index: 200;
+      border-right: 1px solid var(--border);
+    }
+    .sidebar.open {
+      transform: translateX(0);
+      box-shadow: 4px 0 32px rgba(28,27,23,0.18);
+    }
+    .sidebar-overlay {
+      display: block;
+      position: fixed;
+      inset: 0;
+      background: rgba(28, 27, 23, 0.4);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+      z-index: 150;
+    }
+    .sidebar-overlay.visible { opacity: 1; pointer-events: auto; }
+    .sidebar nav a { padding: 12px 16px; font-size: 15px; }
+
+    .main { padding: 20px 18px 48px !important; }
+    h1 { font-size: 30px !important; line-height: 1.1; }
+    h2 { font-size: 22px !important; margin: 40px 0 16px; }
+    h3 { font-size: 17px !important; }
+    .subtitle { font-size: 16px; }
+    .scenario { padding: 20px; }
+    .scenario-title { font-size: 17px; }
+    .scenario-quote { padding: 12px 14px; font-size: 14px; }
+    .command-box { font-size: 12px; padding: 16px 18px; }
+    .callout, .callout-soft, .callout-warning, .callout-danger { padding: 14px 16px; font-size: 14px; }
+    table { display: block; overflow-x: auto; white-space: nowrap; font-size: 13px; }
+    th, td { padding: 8px 12px; }
+  }
+
+  @supports (padding: env(safe-area-inset-left)) {
+    body {
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
+    }
+  }
+</style>
+</head>
+<body>
+
+<header class="mobile-header">
+  <div>
+    <div class="mobile-header-title">OpenClaw Cheat Sheet</div>
+    <div class="mobile-header-sub">Mo's daily reference</div>
+  </div>
+  <button class="hamburger" onclick="openMenu()" aria-label="Open menu"><span></span></button>
+</header>
+<div class="sidebar-overlay" onclick="closeMenu()"></div>
+
+<div class="layout">
+
+<aside class="sidebar">
+  <div class="sidebar-title">OpenClaw Cheat Sheet</div>
+  <div class="sidebar-sub">Mo's daily reference</div>
+  <nav>
+    <a class="section">Quick wins</a>
+    <a href="#instant">Most-used scripts</a>
+    <a href="#pick-path">Which path do I use?</a>
+    <a href="#who-to-ask">Who do I ask for what?</a>
+
+    <a class="section">Starting projects</a>
+    <a href="#start-laptop">At the laptop</a>
+    <a href="#start-telegram">From Telegram</a>
+    <a href="#start-solo">Solo first, adopt later</a>
+
+    <a class="section">Running projects</a>
+    <a href="#midflight">Mid-build check-ins</a>
+    <a href="#pick-up">Picking up next day</a>
+    <a href="#handoff">Handoffs between modes</a>
+    <a href="#context-limit">When you hit a limit</a>
+
+    <a class="section">Memory</a>
+    <a href="#standing-rule">Declare a standing rule</a>
+    <a href="#correct-agent">Correct an agent</a>
+    <a href="#promote-wiki">Promote to wiki</a>
+
+    <a class="section">Day-to-day</a>
+    <a href="#morning">Morning routine</a>
+    <a href="#sunday">Sunday evening</a>
+    <a href="#emergency">When things break</a>
+
+    <a class="section">Reference</a>
+    <a href="#cli-ref">CLI quick reference</a>
+    <a href="#edge-cases">Edge cases</a>
+  </nav>
+</aside>
+
+<main class="main">
+
+<header class="header">
+  <div class="eyebrow">Personal reference · Mo only</div>
+  <h1>The <span class="highlight">cheat sheet</span></h1>
+  <p class="subtitle">Every situation, what to say, and where to say it. Copy-paste ready. Open on your phone while working.</p>
+  <div class="meta">Version 1.0 · Last updated 19 Apr 2026</div>
+</header>
+
+<!-- ============ QUICK WINS ============ -->
+<section id="instant">
+<h2>The scripts you'll say most</h2>
+
+<p>Copy these verbatim. They're the 5 most common things you'll ever say.</p>
+
+<div class="scenario">
+<div class="scenario-header">
+<span class="scenario-badge">#1</span>
+<div class="scenario-title">Start a Sooner project from your laptop</div>
+</div>
+<div class="scenario-say-label">Say to Claude Code:</div>
+<div class="scenario-quote">
+"Launch a new Draper project called <code>&lt;short-name&gt;</code> at <code>~/Sooner/&lt;short-name&gt;</code>"
+<em>Then open that folder in Claude Code Desktop to start building.</em>
+</div>
+</div>
+
+<div class="scenario">
+<div class="scenario-header">
+<span class="scenario-badge">#2</span>
+<div class="scenario-title">Start a Sooner project from Telegram</div>
+</div>
+<div class="scenario-say-label">Say to Draper on Telegram:</div>
+<div class="scenario-quote">
+"Draper, set me up a Claude Code project for &lt;what you want&gt;."
+<em>Draper proposes a name, you confirm, he runs the command. Open the folder in Claude Code Desktop.</em>
+</div>
+</div>
+
+<div class="scenario">
+<div class="scenario-header">
+<span class="scenario-badge">#3</span>
+<div class="scenario-title">Check progress while away from laptop</div>
+</div>
+<div class="scenario-say-label">Say to Draper on Telegram:</div>
+<div class="scenario-quote">
+"How's &lt;project-name&gt; going?"
+<em>Draper reads the live-status file and tells you exactly what happened.</em>
+</div>
+</div>
+
+<div class="scenario">
+<div class="scenario-header">
+<span class="scenario-badge">#4</span>
+<div class="scenario-title">Ask Draper to build something in the background</div>
+</div>
+<div class="scenario-say-label">Say to Draper on Telegram:</div>
+<div class="scenario-quote">
+"Draper, just build &lt;thing&gt; in the background, I'm on the road. Ping me when done."
+<em>Draper uses spawn mode (MODE 2). Returns with result.</em>
+</div>
+</div>
+
+<div class="scenario">
+<div class="scenario-header">
+<span class="scenario-badge">#5</span>
+<div class="scenario-title">Declare a standing rule</div>
+</div>
+<div class="scenario-say-label">Say anywhere (Telegram or Claude Code):</div>
+<div class="scenario-quote">
+"From now on, on all Sooner projects, always use &lt;rule&gt;."
+<em>Captured automatically. Dream cycle promotes to wiki if repeated 3+ times.</em>
+</div>
+</div>
+</section>
+
+<!-- ============ PICK YOUR PATH ============ -->
+<section id="pick-path">
+<h2>Which path do I use?</h2>
+
+<div class="decision-tree">
+<div class="q root">Are you at your laptop right now?</div>
+<div class="yes">Are you inside Claude Code already? → <strong>Tell Claude Code to run the launch command</strong></div>
+<div class="yes">Otherwise → <strong>Open a terminal, run the command yourself</strong></div>
+<div class="no">Are you on your phone or away from the laptop? → <strong>Message the agent on Telegram</strong></div>
+<div class="q">Do you know what you want to build, or still planning?</div>
+<div class="yes">Know exactly → <strong>Just start: launch + open folder</strong></div>
+<div class="no">Still thinking → <strong>Ask the agent to plan it with you first</strong></div>
+<div class="q">Do you want to build it yourself or let the agent do it?</div>
+<div class="yes">Yourself → <strong>MODE 0 (launch) or MODE 1 (create with brief)</strong></div>
+<div class="no">Agent builds → <strong>MODE 2 (spawn) - say "just build it"</strong></div>
+</div>
+</section>
+
+<!-- ============ WHO DOES WHAT ============ -->
+<section id="who-to-ask">
+<h2>Who do I ask for what?</h2>
+
+<h3>Sooner</h3>
+<table>
+<thead>
+<tr><th>Need</th><th>Ask</th><th>Surface</th></tr>
+</thead>
+<tbody>
+<tr><td>Design, brand, frontend, backend build</td><td><strong>Draper</strong></td><td><span class="tag tag-tg">Telegram</span> <span class="tag tag-sl">Slack</span></td></tr>
+<tr><td>Deeper backend, APIs, infra for Sooner</td><td><strong>Dinesh</strong></td><td><span class="tag tag-tg">Telegram</span> <span class="tag tag-sl">Slack</span></td></tr>
+<tr><td>Customer support, ticket triage</td><td><strong>Nora</strong></td><td><span class="tag tag-sl">Slack #support</span></td></tr>
+<tr><td>Investor outreach, fundraising emails</td><td><strong>Reid</strong></td><td><span class="tag tag-tg">Telegram</span></td></tr>
+<tr><td>Creative assets, design work</td><td><strong>Maya</strong></td><td><span class="tag tag-tg">Telegram</span></td></tr>
+<tr><td>Status across the pod, who's doing what</td><td><strong>Lisa</strong></td><td><span class="tag tag-sl">Slack #sooner-ai-leadership</span></td></tr>
+</tbody>
+</table>
+
+<h3>Axeed</h3>
+<table>
+<thead>
+<tr><th>Need</th><th>Ask</th><th>Surface</th></tr>
+</thead>
+<tbody>
+<tr><td>Architecture, technical strategy</td><td><strong>Elon</strong></td><td><span class="tag tag-tg">Telegram</span></td></tr>
+<tr><td>Aurelius engineering</td><td><strong>Tariq</strong></td><td><span class="tag tag-tg">Telegram</span></td></tr>
+<tr><td>Aurelius / Click and Sign delivery</td><td><strong>Samir</strong></td><td><span class="tag tag-tg">Telegram</span></td></tr>
+<tr><td>Loyalty or Neo Fund product direction</td><td><strong>Zane</strong></td><td><span class="tag tag-tg">Telegram</span></td></tr>
+<tr><td>Loyalty execution, HR Leave, Estimate Calc</td><td><strong>Jad</strong></td><td><span class="tag tag-tg">Telegram</span></td></tr>
+</tbody>
+</table>
+
+<h3>Personal</h3>
+<table>
+<thead>
+<tr><th>Need</th><th>Ask</th><th>Surface</th></tr>
+</thead>
+<tbody>
+<tr><td>Calendar, scheduling, cross-company coordination</td><td><strong>Iris</strong></td><td><span class="tag tag-tg">Telegram</span></td></tr>
+<tr><td>Infrastructure questions, system health, anything off</td><td><strong>Iris</strong></td><td><span class="tag tag-tg">Telegram</span></td></tr>
+<tr><td>Spend/cost reports, disk alerts</td><td><strong>Cost Controller</strong></td><td><span class="tag tag-tg">Telegram</span></td></tr>
+<tr><td>Knee recovery, health questions</td><td><strong>Dr. Phoenix</strong></td><td><span class="tag tag-tg">Telegram</span></td></tr>
+</tbody>
+</table>
+</section>
+
+<div class="divider"></div>
+
+<!-- ============ STARTING PROJECTS ============ -->
+<section id="start-laptop">
+<h2>Starting a project at the laptop</h2>
+
+<h3>Option A: Through Claude Code</h3>
+
+<p>Fastest path. You're already in Claude Code. Just say:</p>
+
+<div class="scenario-quote">
+"Launch a new Draper project called <code>broker-portal</code> at <code>~/Sooner/broker-portal</code>"
+</div>
+
+<p>Claude Code runs this for you:</p>
+
+<div class="command-box"><span class="label">what runs</span>
+openclaw-project launch --agent draper --pod sooner --project broker-portal --dir ~/Sooner/broker-portal
+</div>
+
+<p>Then open that folder as a new project in Claude Code Desktop and start building.</p>
+
+<h3>Option B: Terminal directly</h3>
+
+<p>If you want to skip Claude Code and just run the command:</p>
+
+<div class="command-box"><span class="label">terminal</span>
+cd ~/Sooner && openclaw-project launch --agent draper --pod sooner --project broker-portal --dir ~/Sooner/broker-portal && cd broker-portal && claude
+</div>
+
+<h3>For Axeed projects, swap the agent and pod</h3>
+
+<table>
+<thead><tr><th>Pod</th><th>Where it goes</th><th>Example agents</th></tr></thead>
+<tbody>
+<tr><td>Sooner</td><td><code>~/Sooner/&lt;name&gt;</code></td><td>draper, dinesh</td></tr>
+<tr><td>Axeed</td><td><code>~/Axeed/&lt;name&gt;</code></td><td>elon, tariq, samir, zane, jad</td></tr>
+<tr><td>Personal</td><td><code>~/Personal/&lt;name&gt;</code></td><td>iris (if applicable)</td></tr>
+</tbody>
+</table>
+</section>
+
+<section id="start-telegram">
+<h2>Starting a project from Telegram</h2>
+
+<h3>The conversation flow</h3>
+
+<div class="scenario">
+<div class="scenario-header">
+<span class="scenario-badge">You →</span>
+<div class="scenario-title">Message Draper</div>
+</div>
+<div class="scenario-quote">
+"Draper, set me up a Claude Code project for &lt;what you want&gt;."
+</div>
+<div class="scenario-then"><strong>Alternatively:</strong> "Draper, plan and build &lt;thing&gt; for me, I'm on the road." (this routes to MODE 2 spawn)</div>
+</div>
+
+<div class="scenario">
+<div class="scenario-header">
+<span class="scenario-badge neutral">Draper →</span>
+<div class="scenario-title">Proposes a name</div>
+</div>
+<div class="scenario-quote">
+"On it. I'll call it <code>broker-portal</code> at <code>~/Sooner/broker-portal</code>. Sound good?"
+</div>
+</div>
+
+<div class="scenario">
+<div class="scenario-header">
+<span class="scenario-badge">You →</span>
+<div class="scenario-title">Confirm or tweak</div>
+</div>
+<div class="scenario-quote">
+"Yes go" · or · "Call it <code>broker-sso</code> instead"
+</div>
+</div>
+
+<div class="scenario">
+<div class="scenario-header">
+<span class="scenario-badge neutral">Draper →</span>
+<div class="scenario-title">Runs the command, tells you how to open it</div>
+</div>
+<div class="scenario-quote">
+"Done. Open <code>~/Sooner/broker-portal</code> in Claude Code Desktop or run <code>cd ~/Sooner/broker-portal &amp;&amp; claude</code> in a terminal. My full context is loaded. Ping me for progress anytime."
+</div>
+</div>
+
+<div class="callout-soft">
+<strong>Key insight:</strong> Whether you're on Telegram or in Claude Code, the folder you end up with is identical. Same CLAUDE.md, same hooks, same brief format. You're picking between two front doors to the same house.
+</div>
+</section>
+
+<section id="start-solo">
+<h2>Solo first, adopt later</h2>
+
+<p>Sometimes you start building alone in a random folder, then later decide the agent should own it.</p>
+
+<div class="scenario">
+<div class="scenario-header">
+<span class="scenario-badge">You →</span>
+<div class="scenario-title">After building for a while, message the agent</div>
+</div>
+<div class="scenario-quote">
+"Draper, adopt <code>~/Sooner/pricing-work</code> as <code>pricing-page</code>. I've been building solo, want you in the loop now."
+</div>
+</div>
+
+<div class="scenario">
+<div class="scenario-header">
+<span class="scenario-badge neutral">Draper →</span>
+<div class="scenario-title">Runs the adopt command</div>
+</div>
+<div class="scenario-quote">
+"Adopted. All your existing files are preserved. I imported the last 3 Claude Code sessions you had on this folder. Hooks are now live - from here on everything gets logged. Anything you want me to focus on?"
+</div>
+</div>
+
+<p>Under the hood:</p>
+
+<div class="command-box"><span class="label">what runs</span>
+openclaw-project adopt --agent draper --pod sooner --project pricing-page --dir ~/Sooner/pricing-work --note "Mo built solo, bringing Draper in"
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ============ RUNNING PROJECTS ============ -->
+<section id="midflight">
+<h2>Mid-build check-ins</h2>
+
+<h3>While you're working in Claude Code, check progress from phone</h3>
+
+<div class="scenario">
+<div class="scenario-header">
+<span class="scenario-badge">Phone →</span>
+<div class="scenario-title">Message the owning agent on Telegram</div>
+</div>
+<div class="scenario-quote">
+"How's &lt;project&gt; going?" · or · "What have I done on &lt;project&gt; today?"
+</div>
+<div class="scenario-then">Agent reads <code>live-status.md</code> and answers with actual events (files changed, what you asked for, what got built).</div>
+</div>
+
+<h3>Ask for a specific summary</h3>
+
+<div class="scenario-quote">
+"Summarize what was built on &lt;project&gt; this week."
+</div>
+
+<h3>While a background build is running, check status</h3>
+
+<div class="command-box"><span class="label">terminal or ask Claude</span>
+openclaw-project status --dir ~/Sooner/&lt;project&gt;
+</div>
+</section>
+
+<section id="pick-up">
+<h2>Picking up where you left off</h2>
+
+<h3>Next day, open the project cold</h3>
+
+<div class="scenario">
+<div class="scenario-header">
+<span class="scenario-badge">You →</span>
+<div class="scenario-title">In a fresh Claude Code session on the project folder</div>
+</div>
+<div class="scenario-quote">
+"Read <code>PROJECT_SUMMARY.md</code>, tell me where we are, and propose the next step."
+</div>
+<div class="scenario-then">PROJECT_SUMMARY.md is auto-compiled after every substantive session. Always current. Claude picks up with full context in seconds.</div>
+</div>
+
+<h3>Or ask the agent from Telegram first</h3>
+
+<div class="scenario-quote">
+"Draper, summarize where we are on &lt;project&gt; and what's left."
+</div>
+
+<div class="callout-soft">
+<strong>The magic of auto-compile:</strong> You don't have to track state across sessions. Every substantive Claude Code session auto-generates a fresh <code>PROJECT_SUMMARY.md</code>. Next session reads that first (30 seconds of context) instead of digging through the full log (hours of context).
+</div>
+</section>
+
+<section id="handoff">
+<h2>Handoffs between modes</h2>
+
+<h3>You were working in Claude Code, now want Draper to finish it</h3>
+
+<p>Close Claude Code (or just walk away). Message Draper:</p>
+
+<div class="scenario-quote">
+"Draper, continue &lt;project&gt; in the background - &lt;describe what's next&gt;."
+</div>
+
+<p>Draper runs <code>openclaw-project continue</code> which appends the new task to BRIEF.md and spawns Claude Code headlessly.</p>
+
+<h3>Draper was building in background, you want to take over</h3>
+
+<p>Message Draper:</p>
+
+<div class="scenario-quote">
+"I want to take over &lt;project&gt;, I'll drive from Claude Code."
+</div>
+
+<p>Or run yourself:</p>
+
+<div class="command-box"><span class="label">terminal</span>
+openclaw-project takeover --dir ~/Sooner/&lt;project&gt;
+cd ~/Sooner/&lt;project&gt; &amp;&amp; claude
+</div>
+
+<p>The background Claude Code gets stopped cleanly. A TAKEOVER marker lands in the log. Your interactive session picks up with full visibility into what was done.</p>
+
+<h3>Stop a background build without taking over</h3>
+
+<div class="scenario-quote">
+"Draper, stop the background build on &lt;project&gt;."
+</div>
+
+<div class="command-box"><span class="label">or terminal</span>
+openclaw-project stop --dir ~/Sooner/&lt;project&gt;
+</div>
+</section>
+
+<section id="context-limit">
+<h2>When Claude Code hits a limit mid-build</h2>
+
+<p>Claude Code has context window limits and per-session rate limits. If a background build dies unexpectedly:</p>
+
+<div class="callout-warning">
+<strong>What happens:</strong> The process exits. Whatever files were created stay in the folder. Agents notice via <code>last-session</code> returning "incomplete" and will ping you.
+</div>
+
+<h3>Draper pings you on Telegram</h3>
+
+<div class="scenario-quote">
+"Session on &lt;project&gt; ended before completing. Last activity was &lt;X&gt;. Got Y of Z sections done. Want me to continue from where it left off?"
+</div>
+
+<h3>You reply</h3>
+
+<div class="scenario-quote">
+"Yes continue from &lt;step&gt;" · or · "Pause, I want to review first"
+</div>
+
+<p>If you say continue, Draper runs <code>openclaw-project continue</code> with a brief pointing at the last completed step. Fresh Claude Code session, fresh context window, picks up from exactly where the previous one stopped.</p>
+
+<div class="callout-danger">
+<strong>Never auto-retries.</strong> Agents are forbidden from auto-retrying - it creates infinite loops if the underlying cause is a rate limit. Always asks you first.
+</div>
+
+<h3>Break big tasks into smaller ones preemptively</h3>
+
+<p>If you know a task is huge (50-section build, full codebase refactor), ask the agent to split it:</p>
+
+<div class="scenario-quote">
+"Draper, this is a big one - plan it in 5 phases so we don't hit context limits. Let's do phase 1 first."
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ============ MEMORY ============ -->
+<section id="standing-rule">
+<h2>Declare a standing rule</h2>
+
+<h3>In Telegram</h3>
+
+<div class="scenario-quote">
+"From now on, on all Sooner projects, always use 16px body font."
+</div>
+
+<p>The agent you said it to captures it in their MEMORY.md immediately. The Sunday dream cycle will auto-promote to the wiki if you repeat it 3+ times across contexts.</p>
+
+<h3>In Claude Code session</h3>
+
+<p>Same phrasing works:</p>
+
+<div class="scenario-quote">
+"From now on, on Sooner, always left-align primary CTAs in heroes."
+</div>
+
+<p>Claude Code auto-writes this to <code>PREFERENCES.md</code> in the project folder and logs a <code>PREFERENCE captured</code> marker. The owning agent sees it next time they check the project and can promote to the wiki.</p>
+
+<h3>What counts as "standing"</h3>
+
+<ul>
+<li>"<strong>From now on</strong>..."</li>
+<li>"<strong>Always</strong>..."</li>
+<li>"<strong>Never</strong>..."</li>
+<li>"<strong>Going forward</strong>..."</li>
+<li>"<strong>Make sure to always</strong>..."</li>
+<li>"<strong>Let's standardize on</strong>..."</li>
+</ul>
+
+<p>Those phrases all trigger the capture flow. One-off instructions ("make this one yellow") don't.</p>
+</section>
+
+<section id="correct-agent">
+<h2>Correct an agent</h2>
+
+<h3>When an agent says something wrong</h3>
+
+<div class="scenario-quote">
+"That's wrong. &lt;the right thing&gt;. Update your memory accordingly."
+</div>
+
+<p>The agent updates their MEMORY.md, acknowledges the correction, and won't make the same mistake next session.</p>
+
+<h3>When the wiki has outdated info</h3>
+
+<div class="scenario-quote">
+"The brand wiki says X but actually Y. Update the brand wiki."
+</div>
+
+<p>If it's a small correction, the agent edits directly. If it's a significant change to canonical truth, they'll propose the edit and ask you to approve.</p>
+
+<h3>When multiple agents contradict each other</h3>
+
+<p>Message Lisa (Sooner) or Elon (Axeed):</p>
+
+<div class="scenario-quote">
+"Draper and Dinesh are giving different answers about &lt;X&gt;. Reconcile this and give me the right story."
+</div>
+
+<p>Pod leads have explicit "reconcile, don't relay" rules.</p>
+</section>
+
+<section id="promote-wiki">
+<h2>Promote something to the wiki manually</h2>
+
+<p>Usually dream cycles handle this. But if you want to shortcut:</p>
+
+<div class="scenario-quote">
+"Draper, add a new brand rule to the wiki: &lt;rule&gt;. Create a file in <code>wiki/sooner/brand/</code> if needed."
+</div>
+
+<p>The agent will propose the exact file and content before writing. You approve, they write.</p>
+
+<div class="callout-warning">
+<strong>Never do this manually yourself.</strong> Let the agent propose and write. They'll add the dates, format it correctly, update the CLAUDE.md pointers if needed. Manual wiki edits can break the auto-loading.
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ============ DAY TO DAY ============ -->
+<section id="morning">
+<h2>Morning routine</h2>
+
+<p>8:00 AM Dubai. Three stand-ups arrive automatically:</p>
+
+<ol>
+<li><span class="tag tag-sl">Slack</span> Lisa posts Sooner stand-up in <code>#sooner-ai-leadership</code></li>
+<li><span class="tag tag-tg">Telegram</span> Elon sends Axeed status as DM</li>
+<li><span class="tag tag-tg">Telegram</span> Iris sends personal/cross-pod brief as DM</li>
+</ol>
+
+<p>Read each in under 60 seconds. Respond to numbered decisions when you can (hours later or end of day is fine - agents don't chase).</p>
+
+<div class="callout-soft">
+<strong>If there are no numbered decisions,</strong> you don't need to reply at all. The agents are just keeping you informed.
+</div>
+</section>
+
+<section id="sunday">
+<h2>Sunday 7 PM - dream cycle review</h2>
+
+<p>Lisa and Elon each post a weekly dream cycle:</p>
+
+<ul>
+<li><strong>Patterns observed</strong> - rules you repeated, emerging standards</li>
+<li><strong>Auto-promoted</strong> - high-confidence rules already written to the wiki (3+ repetitions)</li>
+<li><strong>Proposals awaiting approval</strong> - medium-confidence items numbered for you</li>
+<li><strong>Stale items</strong> - contradictions or outdated claims to fix</li>
+</ul>
+
+<h3>Your reply format</h3>
+
+<div class="scenario-quote">
+"Approve 1, 3, 4. Reject 2 - I didn't mean that as a rule. Revise 5 to say &lt;X&gt; instead."
+</div>
+
+<p>Lisa/Elon then write the approved changes to the wiki and confirm.</p>
+
+<h3>First of the month - Iris's cross-pod dream</h3>
+
+<p>Iris sends a cross-pod monthly review on the 1st at 9am. Cross-pod rules never auto-promote - always propose. Same approve/reject flow.</p>
+</section>
+
+<section id="emergency">
+<h2>When things break</h2>
+
+<h3>Agent stops responding on Telegram/Slack</h3>
+
+<div class="command-box"><span class="label">terminal</span>
+openclaw gateway restart
+</div>
+
+<p>If that doesn't work, tail the logs:</p>
+
+<div class="command-box"><span class="label">terminal</span>
+tail -f ~/.openclaw/logs/*.log
+</div>
+
+<h3>Disk filling up</h3>
+
+<p>Cost Controller pings you on Telegram when below 20GB. If you want to manually check:</p>
+
+<div class="command-box"><span class="label">terminal</span>
+df -h $HOME
+</div>
+
+<p>Common culprits: <code>~/.openclaw/delegations/</code> (old delegation temp folders), <code>~/Library/Caches/</code>, <code>~/.Trash</code>.</p>
+
+<h3>Backup fails</h3>
+
+<div class="command-box"><span class="label">terminal</span>
+tail -20 ~/.openclaw/handoff-system/logs/backup.log
+</div>
+
+<p>Usually a file over 100MB snuck in. Add it to <code>~/.openclaw/.gitignore</code> and retry:</p>
+
+<div class="command-box"><span class="label">terminal</span>
+openclaw-backup
+</div>
+
+<h3>Claude Code hooks stopped firing</h3>
+
+<p>Check the project has <code>.claude/settings.local.json</code>:</p>
+
+<div class="command-box"><span class="label">terminal</span>
+ls ~/Sooner/&lt;project&gt;/.claude/
+</div>
+
+<p>If missing, re-create via:</p>
+
+<div class="command-box"><span class="label">terminal</span>
+openclaw-project adopt --agent draper --pod sooner --project &lt;name&gt; --dir ~/Sooner/&lt;project&gt; --no-import-history
+</div>
+
+<h3>Dream cycle didn't fire on Sunday</h3>
+
+<p>Check launchd:</p>
+
+<div class="command-box"><span class="label">terminal</span>
+launchctl list | grep ai.openclaw
+</div>
+
+<p>If missing, reinstall:</p>
+
+<div class="command-box"><span class="label">terminal</span>
+~/.openclaw/dreams/scheduler/install.sh
+</div>
+
+<h3>Anything else weird</h3>
+
+<p>Message Iris:</p>
+
+<div class="scenario-quote">
+"Iris, something feels off - &lt;describe&gt;. Can you look into it?"
+</div>
+
+<p>She owns the full infrastructure. Her job is exactly this.</p>
+</section>
+
+<div class="divider"></div>
+
+<!-- ============ REFERENCE ============ -->
+<section id="cli-ref">
+<h2>CLI quick reference</h2>
+
+<table>
+<thead>
+<tr><th>Command</th><th>What it does</th></tr>
+</thead>
+<tbody>
+<tr><td><code>openclaw-project launch</code></td><td>Fresh project, you drive</td></tr>
+<tr><td><code>openclaw-project create</code></td><td>Fresh project with specific brief</td></tr>
+<tr><td><code>openclaw-project spawn</code></td><td>Fresh project, agent builds in background</td></tr>
+<tr><td><code>openclaw-project continue</code></td><td>Background build on existing project</td></tr>
+<tr><td><code>openclaw-project adopt</code></td><td>Retrofit existing solo folder</td></tr>
+<tr><td><code>openclaw-project takeover</code></td><td>Stop background, hand to you</td></tr>
+<tr><td><code>openclaw-project stop</code></td><td>Kill background without handoff</td></tr>
+<tr><td><code>openclaw-project is-running</code></td><td>Check if background is active</td></tr>
+<tr><td><code>openclaw-project last-session</code></td><td>How did last session end (clean/incomplete/stopped)</td></tr>
+<tr><td><code>openclaw-project status</code></td><td>Show activity log for a project</td></tr>
+<tr><td><code>openclaw-project list</code></td><td>List all managed projects</td></tr>
+<tr><td><code>openclaw-project compile</code></td><td>Regenerate PROJECT_SUMMARY.md</td></tr>
+<tr><td><code>openclaw-delegate</code></td><td>Offload heavy work to Claude Code (agents do this automatically)</td></tr>
+<tr><td><code>openclaw-dream-digest</code></td><td>Generate weekly pod memory digest</td></tr>
+<tr><td><code>openclaw-backup</code></td><td>Push ~/.openclaw to private GitHub repo</td></tr>
+<tr><td><code>openclaw gateway restart</code></td><td>Restart the OpenClaw gateway (fixes most agent issues)</td></tr>
+<tr><td><code>openclaw status</code></td><td>Gateway and system health</td></tr>
+</tbody>
+</table>
+</section>
+
+<section id="edge-cases">
+<h2>Edge cases worth knowing</h2>
+
+<h3>You start Claude Code in a folder that has a background build running</h3>
+
+<p>The SessionStart hook will detect the conflict and inject a note into your Claude Code session. Claude will say something like:</p>
+
+<div class="scenario-quote">
+"There's a background build still running on this project (pid 12345). Should I stop it first with <code>openclaw-project takeover --dir .</code>, or leave it running?"
+</div>
+
+<p>You say stop or leave, it acts. No file clobbering.</p>
+
+<h3>You want to move a project between pods</h3>
+
+<p>Don't. Create a new project in the target pod, copy the files manually. Project ownership is encoded in the folder path and the <code>.openclaw-project.json</code>. Cross-pod moves aren't supported because they'd scramble the memory architecture.</p>
+
+<h3>You want two agents to collaborate on one project</h3>
+
+<p>Currently one project = one owning agent. For collaboration, have the owning agent coordinate with others via shared memory. E.g., Draper owns a build, but pings Dinesh in channel for backend questions.</p>
+
+<h3>You want to share a project with Gabriel</h3>
+
+<p>Project folders are local to your Mac. To share, push to a separate git repo. The project management system is about local Claude Code handoff, not collaboration across people. (Future: could change this.)</p>
+
+<h3>You want to delete a project entirely</h3>
+
+<div class="command-box"><span class="label">terminal</span>
+rm -rf ~/Sooner/&lt;project&gt;
+rm -rf ~/.openclaw/shared-memory/sooner/code-projects/&lt;project&gt;
+</div>
+
+<p>The backup to GitHub will reflect the deletion on next sync. No agent magic required.</p>
+
+<h3>You want to rename a project</h3>
+
+<p>Also tricky because the project name is in multiple places. Easiest: delete the project, create a new one with the right name, copy files over.</p>
+
+<h3>You paused in the middle of a project for weeks</h3>
+
+<p>No problem. The folder persists, memory persists, PROJECT_SUMMARY.md is still there. Open Claude Code in the folder, it auto-loads. Or ask the owning agent:</p>
+
+<div class="scenario-quote">
+"Draper, bring me back up to speed on &lt;project&gt;. What was the state when I stopped?"
+</div>
+
+<h3>You want to export a PROJECT_SUMMARY.md to share</h3>
+
+<p>It's just a markdown file:</p>
+
+<div class="command-box"><span class="label">terminal</span>
+cat ~/Sooner/&lt;project&gt;/PROJECT_SUMMARY.md | pbcopy
+</div>
+
+<p>Paste wherever.</p>
+
+<h3>You want to restrict who can talk to agents in a channel</h3>
+
+<p>DMs are already Mo-only. In channels, agents are conservative with non-Mo requests (read-only by default). If you want stricter control, remove the agent from the channel. Easiest lever.</p>
+
+<h3>A rule you declared last week isn't being followed</h3>
+
+<p>Check:</p>
+<ol>
+<li><code>~/.openclaw/shared-memory/sooner/dreams/&lt;last-sunday&gt;.md</code> - did last Sunday's dream promote it?</li>
+<li>If yes, check <code>~/.openclaw/wiki/sooner/</code> - is the rule actually in the wiki?</li>
+<li>If no, tell the relevant agent: "You're not following my rule about X. Reinforce this and promote it now."</li>
+</ol>
+
+<h3>Iris isn't responding to an infrastructure question</h3>
+
+<p>Try rephrasing:</p>
+
+<div class="scenario-quote">
+"Iris, you own the OpenClaw infrastructure. &lt;your question&gt;."
+</div>
+
+<p>Sometimes agents need an explicit reminder of their scope to unlock the right tools.</p>
+</section>
+
+<div class="divider"></div>
+
+<footer class="footer">
+<p><strong>Mo's OpenClaw cheat sheet</strong> · Private reference · Based on the architecture documented in the full system guide · Updated 19 Apr 2026</p>
+</footer>
+
+</main>
+</div>
+
+<script>
+function openMenu() {
+  document.querySelector('.sidebar').classList.add('open');
+  document.querySelector('.sidebar-overlay').classList.add('visible');
+}
+function closeMenu() {
+  document.querySelector('.sidebar').classList.remove('open');
+  document.querySelector('.sidebar-overlay').classList.remove('visible');
+}
+document.querySelectorAll('.sidebar nav a[href]').forEach(a => a.addEventListener('click', () => {
+  if (window.innerWidth <= 980) closeMenu();
+}));
+</script>
+</body>
+</html>

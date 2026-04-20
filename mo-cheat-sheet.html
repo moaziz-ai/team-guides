@@ -619,6 +619,143 @@
   }
   /* === END MOBILE FIX === */
 
+
+  /* Mental model + best practices styling */
+  .lead-small {
+    font-size: 16px;
+    color: var(--muted);
+    margin-bottom: 24px;
+    max-width: 640px;
+    line-height: 1.55;
+  }
+
+  .vs-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 24px 0 28px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    font-size: 14px;
+  }
+  .vs-table thead th {
+    background: var(--cream-soft);
+    padding: 14px 18px;
+    font-weight: 700;
+    font-size: 13px;
+    text-align: left;
+    border-bottom: 2px solid var(--ink);
+  }
+  .vs-table tbody td {
+    padding: 14px 18px;
+    vertical-align: top;
+    border-top: 1px solid var(--border-soft);
+    line-height: 1.55;
+  }
+  .vs-table tbody td:first-child {
+    border-right: 1px solid var(--border-soft);
+  }
+
+  .callout-accent {
+    background: var(--yellow);
+    color: var(--ink);
+    padding: 18px 22px;
+    border-radius: 10px;
+    margin: 24px 0 28px;
+    font-size: 15px;
+    line-height: 1.55;
+  }
+
+  .heart-list {
+    list-style: none;
+    padding: 0;
+    margin: 24px 0 0;
+  }
+  .heart-list li {
+    padding: 12px 16px 12px 44px;
+    border-left: 3px solid var(--yellow);
+    background: var(--cream-soft);
+    margin-bottom: 8px;
+    border-radius: 0 8px 8px 0;
+    position: relative;
+    line-height: 1.5;
+    font-size: 14px;
+  }
+  .heart-list li::before {
+    content: "→";
+    position: absolute;
+    left: 16px;
+    top: 12px;
+    color: var(--ink);
+    font-weight: 800;
+    font-family: 'Geist Mono', monospace;
+  }
+
+  .principles {
+    display: grid;
+    gap: 12px;
+    margin: 24px 0 0;
+  }
+
+  .principle {
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    gap: 16px;
+    align-items: start;
+    padding: 18px 20px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .principle:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(28,27,23,0.06);
+    border-color: var(--ink);
+  }
+
+  .principle-number {
+    width: 36px;
+    height: 36px;
+    background: var(--yellow);
+    color: var(--ink);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Geist Mono', monospace;
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  .principle-title {
+    font-weight: 700;
+    font-size: 15px;
+    margin-bottom: 6px;
+    line-height: 1.3;
+  }
+
+  .principle-body {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--ink);
+  }
+  .principle-body code {
+    font-size: 12px;
+  }
+
+  @media (max-width: 640px) {
+    .vs-table { font-size: 13px; }
+    .vs-table thead th,
+    .vs-table tbody td { padding: 10px 12px; }
+    .principle { grid-template-columns: 32px 1fr; gap: 12px; padding: 14px 16px; }
+    .principle-number { width: 28px; height: 28px; font-size: 12px; }
+    .principle-title { font-size: 14px; }
+    .callout-accent { padding: 14px 16px; font-size: 14px; }
+  }
 </style>
 </head>
 <body>
@@ -638,6 +775,10 @@
   <div class="sidebar-title">OpenClaw Cheat Sheet</div>
   <div class="sidebar-sub">Mo's daily reference</div>
   <nav>
+    <a class="section">Core model</a>
+    <a href="#mental-model">Claude Code vs OpenClaw</a>
+    <a href="#best-practices">Best practices</a>
+
     <a class="section">Quick wins</a>
     <a href="#instant">Most-used scripts</a>
     <a href="#pick-path">Which path do I use?</a>
@@ -678,6 +819,162 @@
   <p class="subtitle">Every situation, what to say, and where to say it. Copy-paste ready. Open on your phone while working.</p>
   <div class="meta">Version 1.0 · Last updated 19 Apr 2026</div>
 </header>
+
+<!-- ============ MENTAL MODEL ============ -->
+<section id="mental-model">
+<h2>Claude Code vs OpenClaw: when to use which</h2>
+
+<p class="lead-small">They're not competitors. They're two halves of one system. This is the mental model that makes everything else clear.</p>
+
+<table class="vs-table">
+<thead>
+<tr><th style="width:50%">OpenClaw (agents on Telegram/Slack)</th><th style="width:50%">Claude Code (interactive build tool)</th></tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>The team that runs the business.</strong> Iris, Draper, Nora, Reid, Lisa, Elon, Tariq, everyone.</td>
+<td><strong>The builder.</strong> One tool. Focused on writing code in a specific folder.</td>
+</tr>
+<tr>
+<td>Lives on <strong>Telegram, Slack, anywhere you chat</strong>.</td>
+<td>Lives in <strong>a terminal or the desktop app</strong>.</td>
+</tr>
+<tr>
+<td>Use for: conversations, decisions, email, tickets, investor updates, stand-ups, memory, coordination, research.</td>
+<td>Use for: frontend, backend, scripts, infrastructure, anything where the output is working code.</td>
+</tr>
+<tr>
+<td>Costs OpenRouter tokens per message (real $).</td>
+<td>Uses your Claude Max subscription (fixed cost, effectively free within cap).</td>
+</tr>
+<tr>
+<td>Has memory across sessions. Agents remember.</td>
+<td>Each session is fresh. Memory lives in the project folder (CLAUDE.md, BRIEF.md, PROJECT_SUMMARY.md).</td>
+</tr>
+<tr>
+<td>Good for: thinking, planning, messaging, operations.</td>
+<td>Good for: building, iterating on code, running long tool chains.</td>
+</tr>
+</tbody>
+</table>
+
+<div class="callout-accent">
+<strong>The bridge:</strong> Every Claude Code project has an <code>.openclaw-project.json</code> file tagging which OpenClaw agent owns it. Hooks log every Claude Code action to a file the agent can read. This is why you can switch between Telegram and Claude Code mid-project and both sides stay in sync.
+</div>
+
+<h3>Decide in 5 seconds</h3>
+
+<ul class="heart-list">
+<li><strong>"I want to chat or think through something"</strong> → OpenClaw agent (Telegram/Slack)</li>
+<li><strong>"I want to write code now"</strong> → Claude Code in a project folder</li>
+<li><strong>"I want to plan code, then build it"</strong> → Start on Telegram with the agent, they scaffold the project, you switch to Claude Code</li>
+<li><strong>"I want to build it but I'm not at my laptop"</strong> → Ask the agent to spawn it in background, check progress from Telegram</li>
+<li><strong>"I already built something solo, want to loop an agent in"</strong> → Ask the agent to adopt the folder</li>
+</ul>
+</section>
+
+<div class="divider"></div>
+
+<!-- ============ BEST PRACTICES ============ -->
+<section id="best-practices">
+<h2>Best practices you should always keep in mind</h2>
+
+<p class="lead-small">The rules that make the system feel magical instead of brittle. Eleven principles, in priority order.</p>
+
+<div class="principles">
+
+<div class="principle">
+<div class="principle-number">1</div>
+<div class="principle-body">
+<div class="principle-title">One project = one folder = one owning agent</div>
+Never have two agents "own" the same folder. Never have the same project in two folders. The <code>.openclaw-project.json</code> file is the single source of truth for ownership. If a project needs to span domains, pick one primary owner and let them coordinate with the other agents.
+</div>
+</div>
+
+<div class="principle">
+<div class="principle-number">2</div>
+<div class="principle-body">
+<div class="principle-title">Name projects in kebab-case, always</div>
+<code>broker-portal</code>, not <code>BrokerPortal</code> or <code>broker_portal</code>. 2-40 characters, lowercase letters, digits, and dashes only. The CLI enforces this. Folder name matches project name.
+</div>
+</div>
+
+<div class="principle">
+<div class="principle-number">3</div>
+<div class="principle-body">
+<div class="principle-title">Never open two Claude Code sessions on the same folder at once</div>
+File conflicts, interleaved logs, clobbered work. The SessionStart hook will warn you, but don't do it in the first place. If a background is running, use <code>openclaw-project takeover</code> to switch cleanly instead of opening a second window.
+</div>
+</div>
+
+<div class="principle">
+<div class="principle-number">4</div>
+<div class="principle-body">
+<div class="principle-title">Let the dream cycle handle rule promotion</div>
+If you repeat a rule 3+ times, Sunday's dream cycle auto-promotes it to the wiki. Don't manually edit the canonical wiki mid-week. The structure exists so rules land in the right place by pattern, not by impulse.
+</div>
+</div>
+
+<div class="principle">
+<div class="principle-number">5</div>
+<div class="principle-body">
+<div class="principle-title">Agents should delegate heavy work, not do it themselves</div>
+Long email drafts, big research, synthesis across many files - the agent should run <code>openclaw-delegate</code> to offload to Claude Code. Fast conversational replies stay in OpenClaw. This is where most of the cost savings come from.
+</div>
+</div>
+
+<div class="principle">
+<div class="principle-number">6</div>
+<div class="principle-body">
+<div class="principle-title">Acknowledge fast, deliver deliberate</div>
+Every agent's hard rule: when you give them a task, they reply immediately with a short acknowledgment, then do the work. If you don't see acknowledgment, something's broken. This is Mo's async safety net.
+</div>
+</div>
+
+<div class="principle">
+<div class="principle-number">7</div>
+<div class="principle-body">
+<div class="principle-title">DMs are Mo-only. Channels are anyone in the channel.</div>
+Don't invite agents to DMs with other humans. Don't let other humans DM your agents. Channels work because everyone in a channel can see what the agent does, which keeps everyone honest.
+</div>
+</div>
+
+<div class="principle">
+<div class="principle-number">8</div>
+<div class="principle-body">
+<div class="principle-title">Background builds never auto-retry. They escalate to you.</div>
+If Claude Code hits a context limit mid-build, the agent pings you on Telegram: "Session ended early, want me to continue from step X?" Never assume the system will recover by itself. Auto-retry creates infinite loops when the cause is a rate limit.
+</div>
+</div>
+
+<div class="principle">
+<div class="principle-number">9</div>
+<div class="principle-body">
+<div class="principle-title">PROJECT_SUMMARY.md is the source of truth, not the raw log</div>
+After each Claude Code session, the summary auto-recompiles. When you (or an agent) check on a project, read the summary first. The raw <code>live-status.md</code> is for audit trails, not daily use. This keeps long-running projects readable even after 100 sessions.
+</div>
+</div>
+
+<div class="principle">
+<div class="principle-number">10</div>
+<div class="principle-body">
+<div class="principle-title">Standing rules declared in Claude Code land in PREFERENCES.md</div>
+If you say "from now on always X" mid-session in Claude Code, it gets captured in <code>PREFERENCES.md</code> at the project root. Next dream cycle, Draper sees it and proposes promotion to the wiki. The system catches rules no matter which surface you're on.
+</div>
+</div>
+
+<div class="principle">
+<div class="principle-number">11</div>
+<div class="principle-body">
+<div class="principle-title">When something feels off, check the cockpit first</div>
+<code>http://localhost:9090/</code> shows system health, active builds, pending action items. If the answer isn't there, check <code>~/.openclaw/handoff-system/logs/</code>. If it's still unclear, message Iris. She owns the infrastructure.
+</div>
+</div>
+
+</div>
+</section>
+
+<div class="divider"></div>
 
 <!-- ============ QUICK WINS ============ -->
 <section id="instant">
